@@ -6,7 +6,7 @@ using TaskManagementApp.Core.ServiceInterfaces;
 
 namespace TaskManagementApp.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class TaskController : ControllerBase
     {
@@ -25,12 +25,13 @@ namespace TaskManagementApp.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            var UserId = HttpContext.User.Identity.Name;
+            var addedTaskResult = await _taskService.CreateTask(task);
 
-            if (UserId == null)
+            if (addedTaskResult == false)
             {
-
+                return BadRequest("Failed to add task.");
             }
+
             return Ok(task);
         }
     }

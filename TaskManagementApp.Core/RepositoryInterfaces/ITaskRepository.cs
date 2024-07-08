@@ -9,6 +9,6 @@ namespace TaskManagementApp.Core.RepositoryInterfaces
 {
     public interface ITaskRepository
     {
-        Task<UserTask> CreateTask(UserTask task); 
+        Task<bool> CreateTask(UserTask task); 
     }
 }

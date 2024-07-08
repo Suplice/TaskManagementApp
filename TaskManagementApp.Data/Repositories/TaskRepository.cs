@@ -16,10 +16,20 @@ namespace TaskManagementApp.Data.Repositories
         {
             _appDbContext = appDbContext;
         }
-        public async Task<UserTask> CreateTask(UserTask task)
+
+
+        public async Task<bool> CreateTask(UserTask task)
         {
-            await _appDbContext.Tasks.AddAsync(task);
-            return task;
+            try
+            {
+                await _appDbContext.Tasks.AddAsync(task);
+                await _appDbContext.SaveChangesAsync();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

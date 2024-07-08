@@ -23,13 +23,30 @@ namespace TaskManagementApp.Core.Services
             _taskRepository = taskRepository;
             _httpContextAccessor = httpContextAccessor;
         }   
-        public async Task<UserTaskDTO> CreateTask(UserTaskDTO task)
+        public async Task<bool> CreateTask(UserTaskDTO task)
         {
-            var UserId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            /*
-             TODO: Przekształcenie DTO w model, przesłanie danych do repozytorium
-             */
-            return task;
+            //var CurrentUserId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var CurrentUserId = "aa";
+
+            if(CurrentUserId == null) {
+                return false;
+            }
+
+            UserTask userTask = new()
+            { 
+            Title = task.Title,
+            Description = task.Description,
+            IsCompleted = task.IsCompleted,
+            StartDate = task.StartDate,
+            DueDate = task.DueDate,
+            UserId = CurrentUserId
+            };
+
+
+            var AddedTaskToDbResult = await _taskRepository.CreateTask(userTask);
+
+            return AddedTaskToDbResult;
+
         }
     }
 }

@@ -3,4 +3,7 @@
 GET {{TaskManagementApp.API_HostAddress}}/weatherforecast/
 Accept: application/json
 
+POST {{TaskManagementApp.API_HostAddress}}/Task
+Content-Type: application/json
+
 ###
