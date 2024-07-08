@@ -7,11 +7,9 @@ namespace TaskManagementApp.Core.Models
     public class User : IdentityUser
     {
 
-        public List<Task> Tasks { get; set; }
+        public ICollection<UserTask>? Tasks { get; set; }
 
-        public List<Notification> Notifications { get; set; }
-
-
+        public ICollection<Notification>? Notifications { get; set; }
 
     }
 }
