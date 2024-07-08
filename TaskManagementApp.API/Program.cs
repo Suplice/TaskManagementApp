@@ -1,3 +1,5 @@
+using TaskManagementApp.Core.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -16,3 +18,4 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.Run();
