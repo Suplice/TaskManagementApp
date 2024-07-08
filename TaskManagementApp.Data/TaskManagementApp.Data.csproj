@@ -8,11 +8,13 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Net.Http.Headers" Version="8.0.6" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\TaskManagementApp.Core\TaskManagementApp.Core.csproj" />
   </ItemGroup>
+
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>

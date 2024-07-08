@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManagementApp.Core", "T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManagementApp.Data", "TaskManagementApp.Data\TaskManagementApp.Data.csproj", "{C27FFDE5-E51F-45C0-B773-88AEA85F208B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManagementApp.DTO", "TaskManagementApp.DTO\TaskManagementApp.DTO.csproj", "{C2F20295-1A31-414E-BBBA-2ED2B6A8A9E7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{C27FFDE5-E51F-45C0-B773-88AEA85F208B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C27FFDE5-E51F-45C0-B773-88AEA85F208B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C27FFDE5-E51F-45C0-B773-88AEA85F208B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2F20295-1A31-414E-BBBA-2ED2B6A8A9E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2F20295-1A31-414E-BBBA-2ED2B6A8A9E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2F20295-1A31-414E-BBBA-2ED2B6A8A9E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2F20295-1A31-414E-BBBA-2ED2B6A8A9E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
