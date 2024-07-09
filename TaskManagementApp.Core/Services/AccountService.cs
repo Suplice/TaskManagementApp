@@ -14,9 +14,13 @@ namespace TaskManagementApp.Core.Services
     public class AccountService : IAccountService
     {
 
-        IAccountRepository _userRepository;
-        public AccountService(IAccountRepository userRepository) {
-        _userRepository = userRepository;
+        IAccountRepository _accountRepository;
+        public AccountService(IAccountRepository accountRepository) {
+        _accountRepository = accountRepository;
+        }
+
+        public async Task<User?> FindUserAsync(string Username) {
+            return await _accountRepository.FindUserAsync(Username);
         }
 
         public async Task<IdentityResult> RegisterUserAsync(RegisterDTO data)
@@ -28,7 +32,20 @@ namespace TaskManagementApp.Core.Services
                 PhoneNumber = data.PhoneNumber,
             };
 
-            return await _userRepository.RegisterUserAsync(user, data.Password);  
+            return await _accountRepository.RegisterUserAsync(user, data.Password);  
+        }
+
+        public async Task<SignInResult> SignInAsync(SignInDTO signInData)
+        {
+            User? user = await FindUserAsync(signInData.Login);
+
+            if (user == null) 
+            {
+                return SignInResult.Failed;
+            }
+
+            return await _accountRepository.SignInAsync(user, signInData.Password);
+
         }
     }
 }

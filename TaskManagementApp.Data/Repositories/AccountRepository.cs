@@ -21,7 +21,16 @@ namespace TaskManagementApp.Data.Repositories
 
         public Task<IdentityResult> RegisterUserAsync(User user, string password)
         {
+            return _userManager.CreateAsync(user, password);
+        }
 
+        public Task<SignInResult> SignInAsync(User user, string password)
+        {
+            return _signInManager.PasswordSignInAsync(user, password, true, false);
+        }
+
+        public Task<User?> FindUserAsync(string username) { 
+            return _signInManager.UserManager.FindByNameAsync(username);
         }
 
 
