@@ -7,7 +7,7 @@ namespace TaskManagementApp.Data.Context
 {
     public class AppDbContext : IdentityDbContext<User>
     {
-        override public DbSet<User> Users { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<UserTask> Tasks { get; set; }
 

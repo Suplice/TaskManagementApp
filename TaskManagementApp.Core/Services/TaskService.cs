@@ -26,7 +26,7 @@ namespace TaskManagementApp.Core.Services
         public async Task<bool> CreateTask(UserTaskDTO task)
         {
             //var CurrentUserId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var CurrentUserId = "aa";
+            var CurrentUserId = "ff3da519-e01d-442c-bf64-54740673529d";
 
             if(CurrentUserId == null) {
                 return false;
