@@ -29,9 +29,9 @@ namespace TaskManagementApp.API.Controllers
 
             if (addedTaskResult == false)
             {
-                return BadRequest("Failed to add task.");
+                return BadRequest("An error occured while trying to create Task, please try again");
             }
-
+            
             return Ok(task);
         }
     }
