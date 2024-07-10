@@ -37,7 +37,7 @@ namespace TaskManagementApp.API.Controllers
         {
             if (!ModelState.IsValid)
             {
-               var errors = GetModelStateErrors(ModelState);
+                var errors = GetModelStateErrors(ModelState);
 
                 var response = new ApiResponse<UserTaskDTO>(false, "ModelState is Invalid", task, errors);
 
@@ -51,7 +51,7 @@ namespace TaskManagementApp.API.Controllers
                 var response = new ApiResponse<UserTaskDTO>(false, "An error occured while trying to create task", task);
                 return BadRequest(response);
             }
-            
+
             var SuccessResponse = new ApiResponse<UserTaskDTO>(true, "Event was successfully added", task);
 
             return Ok(SuccessResponse);
@@ -84,17 +84,10 @@ namespace TaskManagementApp.API.Controllers
             return Ok(successResponse);
         }
 
-
+        [Authorize]
+        [HttpPost("delete")]
         public async Task<IActionResult> DeleteTask(UserTaskDTO task)
         {
-            if (!ModelState.IsValid)
-            {
-                var errors = GetModelStateErrors(ModelState);
-
-                var response = new ApiResponse<UserTaskDTO>(false, "ModelState is invalid", task, errors);
-
-                return BadRequest(response);
-            }
 
             var deleteTaskResult = await _taskService.DeleteTask(task);
 
@@ -106,7 +99,36 @@ namespace TaskManagementApp.API.Controllers
 
             var successResponse = new ApiResponse<UserTaskDTO>(true, "deleting task was successful", task);
             return Ok(successResponse);
-             
+
+
+        }
+
+        [Authorize]
+        [HttpGet("{id}")]
+        public IActionResult GetTaskById(int id)
+        {
+            UserTaskDTO? task = _taskService.GetTaskByIdAsync(id);
+
+            if(task == null)
+            {
+                var response = new ApiResponse<int>(false, "Task does not exist", id);
+                return BadRequest(response);
+            }
+
+            var successResponse = new ApiResponse<UserTaskDTO>(true, "Task was successfully retrieved", task);
+            return Ok(successResponse);
+
+        }
+
+        [Authorize]
+        [HttpGet]
+        public IActionResult GetAllTasksByUserId(string id)
+        {
+            List<UserTaskDTO> tasks = _taskService.GetAllTasksByUserId(id);
+
+            var result = new ApiResponse<List<UserTaskDTO>>(true, "Retrieving List was successful", tasks);
+
+            return Ok(result);
 
         }
 

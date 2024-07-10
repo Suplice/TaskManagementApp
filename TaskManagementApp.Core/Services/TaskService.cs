@@ -59,5 +59,45 @@ namespace TaskManagementApp.Core.Services
         {
             return await _taskRepository.DeleteTask(task);
         }
+
+        public UserTaskDTO? GetTaskByIdAsync(int id)
+        {
+            var task = _taskRepository.GetTaskById(id);
+
+            UserTaskDTO? userTask = (task == null) ? null : new UserTaskDTO
+            {
+                Description = task.Description,
+                Title = task.Title,
+                DueDate = task.DueDate,
+                StartDate = DateTime.Now,
+                IsCompleted = task.IsCompleted
+            };
+
+
+            return userTask;
+
+        }
+
+        public List<UserTaskDTO> GetAllTasksByUserId(string userId)
+        {
+            var tasks = _taskRepository.GetAllTasksByUserId(userId);
+
+            List<UserTaskDTO> result = new List<UserTaskDTO>();
+
+            foreach (var task in tasks)
+            {
+                var userTask = new UserTaskDTO
+                {
+                    Description = task.Description,
+                    Title = task.Title,
+                    DueDate = task.DueDate,
+                    StartDate = DateTime.Now,
+                    IsCompleted = task.IsCompleted
+                };
+                result.Add(userTask);
+            }
+
+            return result;
+        }
     }
 }

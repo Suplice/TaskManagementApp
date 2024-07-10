@@ -64,5 +64,21 @@ namespace TaskManagementApp.Data.Repositories
                 return true;
             return false;
         }
+
+        public UserTask? GetTaskById(int id)
+        {
+            UserTask? task = _appDbContext.Tasks.FirstOrDefault(t => t.TaskId == id);
+
+            return task;
+        }
+
+        public List<UserTask> GetAllTasksByUserId(string userId)
+        {
+            List<UserTask> tasks = _appDbContext.Tasks.Where(t => t.UserId == userId).ToList();
+
+            return tasks;
+        }
+
+
     }
 }

@@ -16,6 +16,9 @@ namespace TaskManagementApp.Core.ServiceInterfaces
         Task<bool> ModifyTask(UserTaskDTO task);
 
         Task<bool> DeleteTask(UserTaskDTO task);
+
+        UserTaskDTO? GetTaskByIdAsync(int id);
         
+        List<UserTaskDTO> GetAllTasksByUserId(string userId);
     }
 }

@@ -14,5 +14,9 @@ namespace TaskManagementApp.Core.RepositoryInterfaces
         Task<bool> ModifyTask(UserTaskDTO task);
 
         Task<bool> DeleteTask(UserTaskDTO task);
+
+        UserTask GetTaskById(int id);
+
+        List<UserTask> GetAllTasksByUserId(string userId);
     }
 }
