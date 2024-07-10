@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.OpenApi.Any;
+using TaskManagementApp.Core.ApiResponse;
 using TaskManagementApp.Core.Models;
 using TaskManagementApp.Core.ServiceInterfaces;
 using TaskManagementApp.DTO.DTOs;
@@ -18,12 +21,25 @@ namespace TaskManagementApp.API.Controllers
             _accountService = accountService;
         }
 
+        private Dictionary<string, List<string>?> GetModelStateErrors (ModelStateDictionary modelState)
+        {
+            var errors = modelState.ToDictionary(
+                k => k.Key,
+                v => v.Value?.Errors.Select(e => e.ErrorMessage).ToList());
+
+            return errors;
+        }
+
 
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterDTO registerData)
         {
-            if (!ModelState.IsValid) { 
-                return BadRequest(ModelState);
+            if (!ModelState.IsValid) {
+                var errors = GetModelStateErrors(ModelState);
+
+                var response = new ApiResponse<RegisterDTO>(false, "Model state is invalid", registerData, errors);
+
+                return BadRequest(response);
             }
 
             var registerResult = await _accountService.RegisterUserAsync(registerData);
@@ -33,20 +49,30 @@ namespace TaskManagementApp.API.Controllers
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
-                return BadRequest(ModelState);
+
+                var errors = GetModelStateErrors(ModelState);
+
+                var response = new ApiResponse<RegisterDTO>(false, "failed to registre", registerData, errors);
+                
+                return BadRequest(response);
             }
 
-            return Ok(new {Message = "User registered successfully"});
+            var successResponse = new ApiResponse<RegisterDTO>(true, "registered successfully", registerData);
+            return Ok(successResponse);
         }
 
 
 
         [HttpPost("login")]
-        public async Task<ActionResult<UserDTO>> SignIn(SignInDTO signInData)
+        public async Task<IActionResult> SignIn(SignInDTO signInData)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                var errors = GetModelStateErrors(ModelState);
+
+                var response = new ApiResponse<SignInDTO>(false, "ModelState is invalid", signInData, errors);
+
+                return BadRequest(response);
             }
 
             var signInResult = await _accountService.SignInAsync(signInData);
@@ -63,19 +89,26 @@ namespace TaskManagementApp.API.Controllers
                     PhoneNumber = user.PhoneNumber
                 };
 
-                return Ok(userDTO);
+                var successResponse = new ApiResponse<UserDTO>(true, "zalogowano pomyślnie", userDTO);
+
+                return Ok(successResponse);
             }
+            else {
+                var errors = GetModelStateErrors(ModelState);
 
-            return BadRequest("An error occured while trying to sign in");
+                var response = new ApiResponse<SignInDTO>(false, "failed to sign in", signInData, errors);
 
+                return BadRequest(response);
+            }
         }
 
         [Authorize]
         [HttpPost("logout")]
-        public async Task<IActionResult> SignOut()
+        public IActionResult SignOut()
         {
-            _accountService.SignOutAsync();
-            return Ok("Signed out successfully");
+           _accountService.SignOutAsync();
+
+            return Ok();
         }
 
     }

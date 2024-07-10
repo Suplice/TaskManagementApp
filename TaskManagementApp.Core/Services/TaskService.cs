@@ -25,8 +25,8 @@ namespace TaskManagementApp.Core.Services
         }   
         public async Task<bool> CreateTask(UserTaskDTO task)
         {
-            //var CurrentUserId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var CurrentUserId = "ff3da519-e01d-442c-bf64-54740673529d";
+            var CurrentUserId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
 
             if(CurrentUserId == null) {
                 return false;
@@ -47,6 +47,17 @@ namespace TaskManagementApp.Core.Services
 
             return AddedTaskToDbResult;
 
+        }
+
+        public async Task<bool> ModifyTask(UserTaskDTO task)
+        {
+            return await _taskRepository.ModifyTask(task);
+        }
+
+
+        public async Task<bool> DeleteTask(UserTaskDTO task)
+        {
+            return await _taskRepository.DeleteTask(task);
         }
     }
 }

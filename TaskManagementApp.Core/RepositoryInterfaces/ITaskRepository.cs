@@ -4,11 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TaskManagementApp.Core.Models;
+using TaskManagementApp.DTO.DTOs;
 
 namespace TaskManagementApp.Core.RepositoryInterfaces
 {
     public interface ITaskRepository
     {
-        Task<bool> CreateTask(UserTask task); 
+        Task<bool> CreateTask(UserTask task);
+        Task<bool> ModifyTask(UserTaskDTO task);
+
+        Task<bool> DeleteTask(UserTaskDTO task);
     }
 }

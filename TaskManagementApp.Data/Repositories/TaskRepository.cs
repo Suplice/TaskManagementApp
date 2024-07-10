@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using TaskManagementApp.Core.Models;
 using TaskManagementApp.Data.Context;
 using TaskManagementApp.Core.RepositoryInterfaces;
+using TaskManagementApp.DTO.DTOs;
+using Microsoft.EntityFrameworkCore;
 
 namespace TaskManagementApp.Data.Repositories
 {
@@ -30,6 +32,37 @@ namespace TaskManagementApp.Data.Repositories
             {
                 return false;
             }
+        }
+
+        public async Task<bool> ModifyTask(UserTaskDTO task)
+        {
+            UserTask? userTask = await _appDbContext.Tasks.FindAsync(task.TaskId);
+
+            if (userTask == null) {
+                return false;
+            }
+
+            userTask.Title = task.Title;
+            userTask.IsCompleted = task.IsCompleted;
+            userTask.Description = task.Description;
+            userTask.DueDate = task.DueDate;
+            userTask.StartDate = task.StartDate;
+
+
+            _appDbContext.Tasks.Update(userTask);
+            await _appDbContext.SaveChangesAsync();
+
+
+            return true;
+        }
+
+
+        public async Task<bool> DeleteTask(UserTaskDTO task)
+        {
+           var result = await _appDbContext.Tasks.Where(t => t.TaskId == task.TaskId).ExecuteDeleteAsync();
+            if (result > 0)
+                return true;
+            return false;
         }
     }
 }
