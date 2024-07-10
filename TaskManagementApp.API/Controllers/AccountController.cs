@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using TaskManagementApp.Core.Models;
@@ -67,6 +68,14 @@ namespace TaskManagementApp.API.Controllers
 
             return BadRequest("An error occured while trying to sign in");
 
+        }
+
+        [Authorize]
+        [HttpPost("logout")]
+        public async Task<IActionResult> SignOut()
+        {
+            _accountService.SignOutAsync();
+            return Ok("Signed out successfully");
         }
 
     }

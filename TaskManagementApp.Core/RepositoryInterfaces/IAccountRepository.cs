@@ -13,5 +13,7 @@ namespace TaskManagementApp.Core.RepositoryInterfaces
         Task<IdentityResult> RegisterUserAsync(User user, string password);
         Task<SignInResult> SignInAsync(User user, string password);
         Task<User?> FindUserAsync(string Login);
+
+        void SignOutAsync();
     }
 }

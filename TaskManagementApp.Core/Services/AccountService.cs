@@ -47,5 +47,10 @@ namespace TaskManagementApp.Core.Services
             return await _accountRepository.SignInAsync(user, signInData.Password);
 
         }
+
+        public void SignOutAsync()
+        {
+            _accountRepository.SignOutAsync();
+        }
     }
 }

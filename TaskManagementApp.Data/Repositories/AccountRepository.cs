@@ -33,6 +33,10 @@ namespace TaskManagementApp.Data.Repositories
             return _signInManager.UserManager.FindByNameAsync(username);
         }
 
+        public async void SignOutAsync()
+        {
+            await _signInManager.SignOutAsync();
+        }
 
     }
 }

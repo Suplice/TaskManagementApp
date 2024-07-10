@@ -14,5 +14,7 @@ namespace TaskManagementApp.Core.ServiceInterfaces
         Task<IdentityResult> RegisterUserAsync(RegisterDTO registerData);
         Task<SignInResult> SignInAsync(SignInDTO signInData);
         Task<User?> FindUserAsync(string username);
+
+        void SignOutAsync();
     }
 }
