@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using TaskManagementApp.DTO.DTOs;
 using TaskManagementApp.Core.Models;
 using TaskManagementApp.Core.ServiceInterfaces;
+using Microsoft.AspNetCore.Authorization;
+using TaskManagementApp.Core.ApiResponse;
 
 namespace TaskManagementApp.API.Controllers
 {
@@ -16,24 +18,50 @@ namespace TaskManagementApp.API.Controllers
             _taskService = taskService;
         }
 
-
+        [Authorize]
         [HttpPost]
-        public async Task<ActionResult<UserTaskDTO>> CreateTask(UserTaskDTO task)
+        public async Task<ActionResult<ApiResponse<UserTaskDTO>>> CreateTask(UserTaskDTO task)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                var errors = ModelState.ToDictionary(
+                    k => k.Key,
+                    v => v.Value?.Errors.Select(e => e.ErrorMessage).ToArray());
+
+                var response = new ApiResponse<UserTaskDTO>(false, "ModelState is Invalid", null, errors);
+
+                return BadRequest(response);
             }
 
             var addedTaskResult = await _taskService.CreateTask(task);
 
             if (addedTaskResult == false)
             {
-                return BadRequest("An error occured while trying to create Task, please try again");
+                var response = new ApiResponse<UserTaskDTO>(false, "An error occured while trying to create task", null);
+                return BadRequest(response);
             }
             
+            var SuccessResponse = new ApiResponse<UserTaskDTO>(true, "Event was successfully added", task);
 
-            return Ok(task);
+            return Ok(SuccessResponse);
         }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<ActionResult<UserTaskDTO>> ModifyTask(UserTaskDTO task)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var modifyTaskResult = _taskService.ModifyTask(task);
+
+            if (modifyTaskResult == false) { 
+                return BadRequest();
+            }
+
+        }
+
     }
 }
