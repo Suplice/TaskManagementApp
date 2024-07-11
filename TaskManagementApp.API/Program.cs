@@ -26,6 +26,17 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReactDevClient",
+        builder =>
+        {
+            builder.WithOrigins("http://localhost:3000")
+            .AllowAnyHeader() .AllowAnyMethod();
+        });
+});
+
+
 builder.Services.AddIdentity<User, IdentityRole>(options =>
 {
     options.Password.RequireDigit = true;
@@ -53,9 +64,12 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage(); // Add detailed error page in development
-    app.UseSwagger();
-    app.UseSwaggerUI();
+   // app.UseSwagger();
+    //app.UseSwaggerUI();
+
 }
+
+app.UseCors("AllowReactDevClient");
 
 
 app.UseAuthentication();
