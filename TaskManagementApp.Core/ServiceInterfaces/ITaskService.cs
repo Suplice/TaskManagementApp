@@ -19,6 +19,6 @@ namespace TaskManagementApp.Core.ServiceInterfaces
 
         UserTaskDTO? GetTaskByIdAsync(int id);
         
-        List<UserTaskDTO> GetAllTasksByUserId(string userId);
+        List<UserTaskDTO> GetAllUserTasks();
     }
 }

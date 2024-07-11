@@ -72,7 +72,7 @@ namespace TaskManagementApp.Data.Repositories
             return task;
         }
 
-        public List<UserTask> GetAllTasksByUserId(string userId)
+        public List<UserTask> GetAllUserTasks(string userId)
         {
             List<UserTask> tasks = _appDbContext.Tasks.Where(t => t.UserId == userId).ToList();
 

@@ -122,9 +122,9 @@ namespace TaskManagementApp.API.Controllers
 
         [Authorize]
         [HttpGet]
-        public IActionResult GetAllTasksByUserId(string id)
+        public IActionResult GetAllTasksByUserId()
         {
-            List<UserTaskDTO> tasks = _taskService.GetAllTasksByUserId(id);
+            List<UserTaskDTO> tasks = _taskService.GetAllUserTasks();
 
             var result = new ApiResponse<List<UserTaskDTO>>(true, "Retrieving List was successful", tasks);
 

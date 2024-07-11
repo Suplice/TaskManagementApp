@@ -78,9 +78,12 @@ namespace TaskManagementApp.Core.Services
 
         }
 
-        public List<UserTaskDTO> GetAllTasksByUserId(string userId)
+        public List<UserTaskDTO> GetAllUserTasks()
         {
-            var tasks = _taskRepository.GetAllTasksByUserId(userId);
+
+            var CurrentUserId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var tasks = _taskRepository.GetAllUserTasks(CurrentUserId);
 
             List<UserTaskDTO> result = new List<UserTaskDTO>();
 

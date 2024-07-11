@@ -17,6 +17,6 @@ namespace TaskManagementApp.Core.RepositoryInterfaces
 
         UserTask GetTaskById(int id);
 
-        List<UserTask> GetAllTasksByUserId(string userId);
+        List<UserTask> GetAllUserTasks(string userId);
     }
 }
