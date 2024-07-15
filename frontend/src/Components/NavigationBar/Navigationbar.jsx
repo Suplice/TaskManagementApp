@@ -5,11 +5,15 @@ import './NavigationBar.css';
 
 function Navigationbar() {
 
-
+    //temporary to change!
     localStorage.setItem("userStatus", "true");
     localStorage.setItem("UserName", "dupa")
+    //
+
 
     const userLoggedIn = localStorage.getItem("userStatus") === "true";
+
+
 
     function handleLogout() {
 
@@ -21,8 +25,8 @@ function Navigationbar() {
             <div className="linkContainer">
                 {userLoggedIn ? (
                     <>
-                        <Link to="/index" className="LinkButton">Task Menu</Link>
-                        <button className="LinkButton" onClick={ handleLogout }>Logout</button>
+                        <Link to="/TaskList" className="LinkButton" >Task Menu</Link>
+                        <Link to="/login" className="LinkButton" onClick={ handleLogout }>Logout</Link>
                     </>
                 ) : (
                     <>

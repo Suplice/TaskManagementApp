@@ -8,7 +8,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color:mediumaquamarine;
+    background-color: hsl(242, 15%, 45%);
     padding: 0px 40px;
 }
 
@@ -18,21 +18,20 @@ body {
 }
 
 .LinkButton {
+    font-style: oblique;
     cursor: pointer;
-    padding: 20px 20px; 
+    padding: 20px 20px;
     border: none;
     color: black;
-    background-color: mediumaquamarine;
-    text-decoration: none; 
-    font-size: 20px; 
+    background-color: hsl(242, 15%, 45%);
+    text-decoration: none;
+    font-size: 25px;
     font-weight: bold;
     transition: background-color 0.5s ease, color 0.5s ease;
-
-
 }
 
     .LinkButton:hover {
-        background-color:dimgrey;
+        background-color: hsl(0, 25%, 80%);
         color: white; 
     }
 
