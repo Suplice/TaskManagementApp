@@ -23,6 +23,7 @@ function Navigationbar() {
             <Link to="/login" className="LinkButton" onClick={handleLogout}>
               Logout
             </Link>
+            <Link to="/register" className="LinkButton"> Register </Link>
           </>
         ) : (
           <>

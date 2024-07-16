@@ -8,8 +8,6 @@ body{
     align-items: center;
     justify-content: center;
     margin-top: 20vh;
-
-    
 }
 .LoginMenu {
     opacity: 0.9;
@@ -23,6 +21,7 @@ body{
     border: 2px solid hsl(240, 9%, 45%);
     max-width: 350px;
     max-height: 350px;
+    box-shadow: 0 10px 20px 0 rgba(0,0,0,0.24),0 16px 40px 0 rgba(0,0,0,0.19);
 }
 
 .buttons{
@@ -32,38 +31,40 @@ body{
     align-items: center;
     margin-top: 40px;
 }
-        .LoginButton {
-            display: flex;
-            border: none;
-            border-radius: 5px;
-            padding: 5px;
-            margin: 10px;
-            width: 100px;
-            height: 30px;
-            background-color: hsl(187, 39%, 67%);
-            font-size: 20px;
-            justify-content: center;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-        }
+.LoginButton {
+    display: flex;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 10px;
+    width: 100px;
+    height: 30px;
+    background-color: hsl(187, 39%, 67%);
+    font-size: 20px;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    box-shadow: 0 10px 20px 0 rgba(0,0,0,0.24),0 16px 40px 0 rgba(0,0,0,0.19);
+}
             .LoginButton:hover {
                 background-color: hsl(187, 39%, 62%);
             }
 
-        .ResetButton {
-            display: flex;
-            justify-content: center;
-            border: none;
-            border-radius: 5px;
-            padding: 5px;
-            margin: 10px;
-            width: 100px;
-            height: 30px;
-            font-size: 20px;
-            cursor: pointer;
-            background-color: hsl(0, 73%, 80%);
-            transition: background-color 0.2s ease;
-        }
+.ResetButton {
+    display: flex;
+    justify-content: center;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 10px;
+    width: 100px;
+    height: 30px;
+    font-size: 20px;
+    cursor: pointer;
+    background-color: hsl(0, 73%, 80%);
+    transition: background-color 0.2s ease;
+    box-shadow: 0 10px 20px 0 rgba(0,0,0,0.24),0 16px 40px 0 rgba(0,0,0,0.19);
+}
             .ResetButton:hover {
                 background-color: hsl(0, 73%, 75%);
             }

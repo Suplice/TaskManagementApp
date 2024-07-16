@@ -1,13 +1,14 @@
 .Task-container {
-  border: 2px solid black;
-  display: flex;
-  flex-direction: row;
-  width: 700px;
-  height: 250px;
-  box-sizing: border-box;
-  margin-bottom: 30px;
-  background-color: hsl(0, 2%, 65%);
-  border-radius: 20px;
+    border: 2px solid black;
+    display: flex;
+    flex-direction: row;
+    width: 700px;
+    height: 250px;
+    box-sizing: border-box;
+    margin-bottom: 30px;
+    background-color: hsl(0, 2%, 65%);
+    border-radius: 20px;
+    box-shadow: 0 10px 20px 0 rgba(0,0,0,0.24),0 16px 40px 0 rgba(0,0,0,0.19);
 }
 
 .TaskInformation {
@@ -40,30 +41,35 @@
   align-items: center;
   justify-content: center;
   transform: translateZ(0);
+
 }
 .CompleteTaskButton {
-  border: none;
-  padding: 20px;
-  border-radius: 500px;
-  margin: 8%;
-  background-color: hsl(128, 95%, 53%);
-  cursor: pointer;
-  font-size: 15px;
-  font-weight: bold;
+    border: none;
+    padding: 20px;
+    border-radius: 500px;
+    margin: 8%;
+    background-color: hsl(128, 95%, 53%);
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    transition: background-color 0.5s ease;
+    box-shadow: 0 6px 8px 0 rgba(0,0,0,0.24),0 8px 25px 0 rgba(0,0,0,0.19);
 }
 .CompleteTaskButton:hover {
   background-color: hsl(128, 95%, 43%);
 }
 
 .RemoveTaskButton {
-  padding: 20px;
-  border-radius: 200px;
-  border: none;
-  margin: 8%;
-  background-color: hsl(0, 100%, 58%);
-  cursor: pointer;
-  font-size: 15px;
-  font-weight: bold;
+    padding: 20px;
+    border-radius: 200px;
+    border: none;
+    margin: 8%;
+    background-color: hsl(0, 100%, 58%);
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    transition: background-color 0.5s ease;
+    box-shadow: 0 6px 8px 0 rgba(0,0,0,0.24),0 8px 25px 0 rgba(0,0,0,0.19);
 }
 .RemoveTaskButton:hover {
   background-color: hsl(0, 100%, 46%);
