@@ -1,42 +1,44 @@
 body {
-    margin: 0;
-    font-size: 20px;
-    font-weight: bold;
+  margin: 0;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .navigationContainer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: hsl(242, 15%, 45%);
-    padding: 0px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: hsl(242, 15%, 45%);
+  padding: 0px 40px;
 }
 
 .linkContainer {
-    display: flex;
-    gap: 50px; 
+  display: flex;
+  gap: 50px;
 }
 
 .LinkButton {
-    font-style: oblique;
-    cursor: pointer;
-    padding: 20px 20px;
-    border: none;
-    color: black;
-    background-color: hsl(242, 15%, 45%);
-    text-decoration: none;
-    font-size: 25px;
-    font-weight: bold;
-    transition: background-color 0.5s ease, color 0.5s ease;
+  font-style: oblique;
+  cursor: pointer;
+  padding: 20px 20px;
+  border: none;
+  color: black;
+  background-color: hsl(242, 15%, 45%);
+  text-decoration: none;
+  font-size: 25px;
+  font-weight: bold;
+  transition:
+    background-color 0.5s ease,
+    color 0.5s ease;
 }
 
-    .LinkButton:hover {
-        background-color: hsl(0, 25%, 80%);
-        color: white; 
-    }
+.LinkButton:hover {
+  background-color: hsl(0, 25%, 80%);
+  color: white;
+}
 
 .WelcomeText {
-    margin: 0;
-    text-shadow: 2px 2px 3px darkgrey;
-    font-size: 35px;
+  margin: 0;
+  text-shadow: 2px 2px 3px darkgrey;
+  font-size: 35px;
 }
