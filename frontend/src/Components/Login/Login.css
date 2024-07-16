@@ -1,0 +1,121 @@
+body{
+    box-sizing: border-box;
+}
+
+.LoginContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20vh;
+
+    
+}
+.LoginMenu {
+    opacity: 0.9;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: hsl(214, 17%, 64%);
+    display: flex;
+    min-width: 350px;
+    height: 300px;
+    align-items: center;
+    border: 2px solid hsl(240, 9%, 45%);
+    max-width: 350px;
+    max-height: 350px;
+}
+
+.buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+}
+        .LoginButton {
+            display: flex;
+            border: none;
+            border-radius: 5px;
+            padding: 5px;
+            margin: 10px;
+            width: 100px;
+            height: 30px;
+            background-color: hsl(187, 39%, 67%);
+            font-size: 20px;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+            .LoginButton:hover {
+                background-color: hsl(187, 39%, 62%);
+            }
+
+        .ResetButton {
+            display: flex;
+            justify-content: center;
+            border: none;
+            border-radius: 5px;
+            padding: 5px;
+            margin: 10px;
+            width: 100px;
+            height: 30px;
+            font-size: 20px;
+            cursor: pointer;
+            background-color: hsl(0, 73%, 80%);
+            transition: background-color 0.2s ease;
+        }
+            .ResetButton:hover {
+                background-color: hsl(0, 73%, 75%);
+            }
+        .LoginForm{
+            
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+        }
+            
+            .Text{
+                padding: 3px;
+                font-weight: bold;
+                margin-bottom: 3px;
+                font-size: 25px;
+
+            }
+            input {
+                padding: 7px;
+                margin: 0px 0px 0px 0px;
+                border-radius: 5px;
+                font-size: 20px;
+                font-weight: bold;
+            }
+            .InputError{
+                font-size: 15px;
+                margin: 0;
+                margin-bottom: 15px;
+                margin-top: 3px;
+                color: hsl(0, 71%, 53%);
+            }
+
+    .RedirectToRegister {
+        display: flex;
+
+    }
+        .RedirectToRegisterButton{
+            display: flex;
+            text-decoration: none;
+            color: blue;
+        }
+            .RedirectToRegisterButton:hover{
+                text-decoration: underline;
+            }
+        .RedirectToRegisterText{
+            display: flex;
+            margin: 0;
+            margin-right: 10px;
+        }
+        
+
+
+
