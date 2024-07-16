@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="src\Components\Login\" />
+    <Folder Include="src\Components\Register\" />
     <Folder Include="src\Components\Task\" />
   </ItemGroup>
 </Project>
