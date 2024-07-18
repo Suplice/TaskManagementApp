@@ -7,6 +7,10 @@ using TaskManagementApp.Data.Repositories;
 using TaskManagementApp.Core.RepositoryInterfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using TaskManagementApp.Core.JwtSettings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,14 +29,41 @@ builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+var jwtSettings = builder.Configuration.GetSection("JwtSettings");
+var secretKey = Encoding.ASCII.GetBytes(jwtSettings["SecretKey"]);
+
+builder.Services.Configure<JwtSettings>(jwtSettings);
+
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = jwtSettings["Issuer"],
+        ValidAudience = jwtSettings["Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(secretKey),
+        ClockSkew = TimeSpan.Zero
+    };
+});
 
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactDevClient",
         builder =>
         {
-            builder.WithOrigins("http://localhost:3000")
-            .AllowAnyHeader() .AllowAnyMethod();
+            builder.WithOrigins("http://localhost:5173")
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
         });
 });
 
@@ -52,11 +83,7 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
 })
 .AddEntityFrameworkStores<AppDbContext>();
 
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            .AddCookie(options =>
-            {
-                options.LoginPath = "/Account/Login";
-            });
+
 
 var app = builder.Build();
 
@@ -64,8 +91,8 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage(); // Add detailed error page in development
-   // app.UseSwagger();
-    //app.UseSwaggerUI();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 
 }
 

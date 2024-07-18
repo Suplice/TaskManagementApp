@@ -4,10 +4,16 @@ using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.OpenApi.Any;
+using System.IdentityModel.Tokens.Jwt;
 using TaskManagementApp.Core.ApiResponse;
+using TaskManagementApp.Core.JwtSettings;
 using TaskManagementApp.Core.Models;
 using TaskManagementApp.Core.ServiceInterfaces;
 using TaskManagementApp.DTO.DTOs;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Options;
+using System.Text;
+using System.Security.Claims;
 
 namespace TaskManagementApp.API.Controllers
 {
@@ -16,8 +22,10 @@ namespace TaskManagementApp.API.Controllers
     public class AccountController : ControllerBase
     {
         IAccountService _accountService;
+        IOptions<JwtSettings> _jwtSettings;
 
-        public AccountController(IAccountService accountService) {
+        public AccountController(IAccountService accountService, IOptions<JwtSettings> jwtSettings) {
+            _jwtSettings = jwtSettings;
             _accountService = accountService;
         }
 
@@ -28,6 +36,29 @@ namespace TaskManagementApp.API.Controllers
                 v => v.Value?.Errors.Select(e => e.ErrorMessage).ToList());
 
             return errors;
+        }
+
+        private string GetJwtToken(User user)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var jwtSettings = _jwtSettings.Value;
+            var key = Encoding.ASCII.GetBytes(jwtSettings.SecretKey);
+
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
+                {
+                    new Claim(ClaimTypes.Name, user.UserName),
+                }),
+                Expires = DateTime.UtcNow.AddHours(jwtSettings.ExpiryHours),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+
+
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            var tokenString = tokenHandler.WriteToken(token);
+
+            return tokenString;
         }
 
 
@@ -82,6 +113,9 @@ namespace TaskManagementApp.API.Controllers
             {
                 var user = await _accountService.FindUserAsync(signInData.Login);
 
+                var tokenString = GetJwtToken(user);
+
+
                 var userDTO = new UserDTO
                 {
                     Login = user.UserName,
@@ -90,6 +124,8 @@ namespace TaskManagementApp.API.Controllers
                 };
 
                 var successResponse = new ApiResponse<UserDTO>(true, "zalogowano pomyślnie", userDTO);
+
+                successResponse.JwtToken = tokenString;
 
                 return Ok(successResponse);
             }
