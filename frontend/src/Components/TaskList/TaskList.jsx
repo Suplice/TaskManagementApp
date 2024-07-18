@@ -5,27 +5,41 @@ import AddTaskForm from "../AddTaskForm/AddTaskForm.jsx";
 function TaskList() {
   const [isFormVisible, setIsFormVisible] = new useState(false);
 
+
     const showForm = () => {
         setIsFormVisible(true);
+
+        document.documentElement.style.filter = 'brightness(70%)';
+
+        let element = document.getElementById("addTaskContainer");
+
+        document.getElementById("addTaskContainer").style.filter = 'brightness(100%)';
+
+        console.log(element);
     };
     const hideForm = () => {
         setIsFormVisible(false);
+
+        document.documentElement.style.filter = 'brightness(100%)';
     };
 
-  return (
-      <div className="TaskMenu-Container">
-          <AddTaskForm isVisible={isFormVisible} onClose={ hideForm }></AddTaskForm>
-      <div className="AddEvent">
-        <button className="AddEventButton" onClick={showForm}>
-          Add Event
-        </button>
-      </div>
-      <div className="Tasks">
-        <Task>events</Task>
-        <Task>events</Task>
-        <Task>events</Task>
-        <Task>events</Task>
-      </div>
+    return (
+      <div className="MainContainer">
+            <div className="TaskMenu-Container">
+                {isFormVisible && <div className="Overlay" onClick={ hideForm }></div>}
+                  <AddTaskForm isVisible={isFormVisible} onClose={hideForm}></AddTaskForm>
+                  <div className="AddEvent">
+                    <button className="AddEventButton" onClick={showForm}>
+                      Add Event
+                    </button>
+                  </div>
+                  <div className="Tasks">
+                    <Task>events</Task>
+                    <Task>events</Task>
+                    <Task>events</Task>
+                    <Task>events</Task>
+                  </div>
+            </div>
     </div>
   );
 }
