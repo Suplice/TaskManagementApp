@@ -1,10 +1,11 @@
 import "./AddTaskForm.css";
+import PropTypes from "prop-types";
 
 function AddTaskForm({ isVisible, onClose }) {
-
   return (
     <div
-          className="AddTaskContainer" id="addTaskContainer"
+      className="AddTaskContainer"
+      id="addTaskContainer"
       style={{ visibility: isVisible ? "visible" : "hidden" }}
     >
       <form className="AddEventForm">
@@ -28,11 +29,18 @@ function AddTaskForm({ isVisible, onClose }) {
           <button className="ResetInput" type="reset">
             Reset
           </button>
-          <button className="CloseForm" type="button" onClick={onClose} >Close</button>
+          <button className="CloseForm" type="button" onClick={onClose}>
+            Close
+          </button>
         </div>
       </form>
     </div>
   );
 }
+
+AddTaskForm.propTypes = {
+  isVisible: PropTypes.boolean,
+  onClose: PropTypes.func,
+};
 
 export default AddTaskForm;
