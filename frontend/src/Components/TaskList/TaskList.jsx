@@ -8,19 +8,9 @@ function TaskList() {
 
     const showForm = () => {
         setIsFormVisible(true);
-
-        document.documentElement.style.filter = 'brightness(70%)';
-
-        let element = document.getElementById("addTaskContainer");
-
-        document.getElementById("addTaskContainer").style.filter = 'brightness(100%)';
-
-        console.log(element);
     };
     const hideForm = () => {
         setIsFormVisible(false);
-
-        document.documentElement.style.filter = 'brightness(100%)';
     };
 
     return (
