@@ -1,9 +1,38 @@
 import "./TaskList.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Task from "../Task/Task.jsx";
 import AddTaskForm from "../AddTaskForm/AddTaskForm.jsx";
+import axios from 'axios';
 function TaskList() {
+
   const [isFormVisible, setIsFormVisible] = new useState(false);
+
+  const [tasks, setTasks] = useState([]);
+
+
+
+
+
+
+
+    async function fetchTasks() {
+
+
+        try {
+            const token = localStorage.getItem("JwtToken");
+            console.log(token);
+            const response = await axios.get("http://localhost:5065/Task/GetAllTasksByUserId", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            console.log(response);
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }
 
   const showForm = () => {
     setIsFormVisible(true);
@@ -20,7 +49,10 @@ function TaskList() {
         <div className="AddEvent">
           <button className="AddEventButton" onClick={showForm}>
             Add Event
-          </button>
+        </button>
+                  <button className="AddEventButton" onClick={fetchTasks}>
+                      Add Event
+                  </button>
         </div>
         <div className="Tasks">
           <Task>events</Task>

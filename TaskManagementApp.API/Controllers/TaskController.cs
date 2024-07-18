@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using TaskManagementApp.Core.ApiResponse;
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace TaskManagementApp.API.Controllers
 {
@@ -120,8 +121,8 @@ namespace TaskManagementApp.API.Controllers
 
         }
 
-        [Authorize]
-        [HttpGet]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpGet("GetAllTasksByUserId")]
         public IActionResult GetAllTasksByUserId()
         {
             List<UserTaskDTO> tasks = _taskService.GetAllUserTasks();

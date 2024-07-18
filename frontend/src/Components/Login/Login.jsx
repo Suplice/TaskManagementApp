@@ -1,7 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
-
 import "./Login.css";
 
 function Login() {
@@ -19,7 +18,7 @@ function Login() {
 
     try {
       const response = await axios.post(
-        "http://localhost:5065/api/Account/login",
+        "http://localhost:5065/Account/login",
         formData,
       );
 
@@ -32,7 +31,11 @@ function Login() {
 
       console.log("login error:", error);
 
-      setErrorMessage("- Invalid login or password, please try again.");
+        setErrorMessage("- Invalid login or password, please try again.");
+        setFormData((prevState) => ({
+            ...prevState,
+            Password: '',
+        }));
       console.log(errorMessage);
     }
   }
@@ -45,7 +48,7 @@ function Login() {
       [name]: value,
     }));
 
-    console.log(formData);
+    console.log();
   }
 
   return (

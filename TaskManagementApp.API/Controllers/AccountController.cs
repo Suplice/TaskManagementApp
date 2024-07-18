@@ -17,15 +17,15 @@ using System.Security.Claims;
 
 namespace TaskManagementApp.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class AccountController : ControllerBase
     {
-        IAccountService _accountService;
-        IOptions<JwtSettings> _jwtSettings;
+        private readonly IAccountService _accountService;
+        private readonly IConfiguration _config;
 
-        public AccountController(IAccountService accountService, IOptions<JwtSettings> jwtSettings) {
-            _jwtSettings = jwtSettings;
+        public AccountController(IAccountService accountService, IConfiguration config) {
+            _config = config;
             _accountService = accountService;
         }
 
@@ -40,25 +40,24 @@ namespace TaskManagementApp.API.Controllers
 
         private string GetJwtToken(User user)
         {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var jwtSettings = _jwtSettings.Value;
-            var key = Encoding.ASCII.GetBytes(jwtSettings.SecretKey);
 
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.Name, user.UserName),
-                }),
-                Expires = DateTime.UtcNow.AddHours(jwtSettings.ExpiryHours),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
+            var claims = new[]
+              {
+            new Claim(ClaimTypes.NameIdentifier, user.Id) // Add NameIdentifier claim
+             };
 
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JwtSettings:SecretKey"]));
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            var tokenString = tokenHandler.WriteToken(token);
+            var Sectoken = new JwtSecurityToken(_config["JwtSettings:Issuer"],
+                _config["JwtSettings:Audience"],
+                claims,
+                expires: DateTime.Now.AddDays(1),
+                signingCredentials: credentials);
 
-            return tokenString;
+            var token = new JwtSecurityTokenHandler().WriteToken(Sectoken);
+
+            return token;
         }
 
 
