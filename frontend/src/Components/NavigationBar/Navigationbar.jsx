@@ -1,15 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link , useNavigate} from "react-router-dom";
 import "./NavigationBar.css";
+import axios from 'axios';
 
-function Navigationbar() {
-  //temporary to change!
-  localStorage.setItem("userStatus", "true");
-  localStorage.setItem("UserName", "dupa");
-  //
+function Navigationbar({ onLogout }) {
 
-  const userLoggedIn = localStorage.getItem("userStatus") === "true";
+  const userLoggedIn = localStorage.getItem("loggedIn") === "true";
 
-  function handleLogout() {}
 
   return (
     <nav className="navigationContainer">
@@ -19,12 +15,8 @@ function Navigationbar() {
             <Link to="/TaskList" className="LinkButton">
               Task Menu
             </Link>
-            <Link to="/login" className="LinkButton" onClick={handleLogout}>
+              <Link className="LinkButton" onClick={onLogout}>
               Logout
-            </Link>
-            <Link to="/register" className="LinkButton">
-              {" "}
-              Register{" "}
             </Link>
           </>
         ) : (
@@ -40,7 +32,7 @@ function Navigationbar() {
       </div>
       {userLoggedIn && (
         <p className="WelcomeText">
-          Welcome, {localStorage.getItem("UserName")}
+          Welcome, {localStorage.getItem("userName")}
         </p>
       )}
     </nav>

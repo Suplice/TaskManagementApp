@@ -35,7 +35,7 @@ function Register() {
       </div>
       <div className="RedirectToLoginPage">
         <p className="RedirectToLoginText">Already have an account?</p>
-        <Link className="RedirectToLoginButton">Login</Link>
+        <Link className="RedirectToLoginButton" to="/login">Login</Link>
       </div>
     </div>
   );

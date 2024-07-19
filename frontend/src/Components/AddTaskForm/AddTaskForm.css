@@ -8,6 +8,7 @@
   position: fixed;
 }
 
+
 .AddEventForm {
   filter: brightness(100%);
   display: flex;
@@ -100,3 +101,5 @@ label {
 .CloseForm:hover {
   background-color: hsl(0, 1%, 55%);
 }
+
+

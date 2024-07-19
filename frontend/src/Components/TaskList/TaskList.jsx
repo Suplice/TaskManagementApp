@@ -51,7 +51,7 @@ function TaskList() {
         <AddTaskForm isVisible={isFormVisible} onClose={hideForm}></AddTaskForm>
         <div className="AddEvent">
           <button className="AddEventButton" onClick={showForm}>
-            Add Event
+            Add Task
         </button>
         </div>
         <div className="Tasks">

@@ -14,6 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Options;
 using System.Text;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace TaskManagementApp.API.Controllers
 {
@@ -137,9 +138,9 @@ namespace TaskManagementApp.API.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost("logout")]
-        public IActionResult SignOut()
+        public IActionResult SignOutAsync()
         {
            _accountService.SignOutAsync();
 

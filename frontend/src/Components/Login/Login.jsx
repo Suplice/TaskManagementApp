@@ -3,7 +3,8 @@ import { useState } from "react";
 import axios from "axios";
 import "./Login.css";
 
-function Login() {
+function Login({ onLogin }) {
+
   const [formData, setFormData] = useState({
     Login: "",
     Password: "",
@@ -25,7 +26,8 @@ function Login() {
         console.log(response);
         localStorage.setItem("JwtToken", response.data.jwtToken);
         localStorage.setItem("loggedIn", "true");
-        navigate("/TaskList");
+        localStorage.setItem("userName", response.data.data.login);
+        onLogin();
 
     } catch (error) {
 
