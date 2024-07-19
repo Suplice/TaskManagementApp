@@ -95,7 +95,9 @@ namespace TaskManagementApp.Core.Services
                     Title = task.Title,
                     DueDate = task.DueDate,
                     StartDate = DateTime.Now,
-                    IsCompleted = task.IsCompleted
+                    IsCompleted = task.IsCompleted,
+                    TaskId = task.TaskId
+                    
                 };
                 result.Add(userTask);
             }

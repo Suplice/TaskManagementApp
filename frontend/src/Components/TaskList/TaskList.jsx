@@ -9,11 +9,9 @@ function TaskList() {
 
   const [tasks, setTasks] = useState([]);
 
-
-
-
-
-
+    useEffect(() => {
+        fetchTasks();
+    }, []);
 
     async function fetchTasks() {
 
@@ -27,12 +25,17 @@ function TaskList() {
                 },
             });
 
-            console.log(response);
+            console.log(response.data.data);
+            setTasks(response.data.data);
         }
         catch (error) {
             console.log(error);
         }
     }
+
+    const listTasks = tasks.map((task) =>
+        <Task key={task.taskId} title={task.title} description={task.description} isCompleted={task.isCompleted} startDate={task.startDate} dueDate={task.dueDate} ></Task>
+    );
 
   const showForm = () => {
     setIsFormVisible(true);
@@ -50,15 +53,9 @@ function TaskList() {
           <button className="AddEventButton" onClick={showForm}>
             Add Event
         </button>
-                  <button className="AddEventButton" onClick={fetchTasks}>
-                      Add Event
-                  </button>
         </div>
         <div className="Tasks">
-          <Task>events</Task>
-          <Task>events</Task>
-          <Task>events</Task>
-          <Task>events</Task>
+          {listTasks }
         </div>
       </div>
     </div>
