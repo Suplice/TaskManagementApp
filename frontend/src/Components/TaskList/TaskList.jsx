@@ -51,7 +51,7 @@ function TaskList() {
     <div className="MainContainer">
       <div className="TaskMenu-Container">
         {isFormVisible && <div className="Overlay" onClick={hideForm}></div>}
-        <AddTaskForm isVisible={isFormVisible} onClose={hideForm}></AddTaskForm>
+              <AddTaskForm isVisible={isFormVisible} onClose={hideForm} onAdded={ fetchTasks }></AddTaskForm>
         <div className="AddEvent">
           <button className="AddEventButton" onClick={showForm}>
             Add Task

@@ -10,13 +10,13 @@ namespace TaskManagementApp.DTO.DTOs
 {
     public class AddTaskRequest
     {
-        [Required]
+        [Required(ErrorMessage = "Title field is required")]
         public string title { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Description field is required")]
         public string description { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="End Date field is required")]
         [DateGreaterThanToday]
         public DateTime dueDate { get; set; }
     }

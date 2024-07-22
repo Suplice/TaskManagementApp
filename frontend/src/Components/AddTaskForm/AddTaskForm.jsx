@@ -1,32 +1,110 @@
 import "./AddTaskForm.css";
 import PropTypes from "prop-types";
+import { useState } from 'react';
+import axios from 'axios';
 
-function AddTaskForm({ isVisible, onClose }) {
+function AddTaskForm({ isVisible, onClose, onAdded }) {
+
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+    const [dueDate, setDueDate] = useState('');
+
+    const [errors, setErrors] = new useState({});
+
+    function validateForm() {
+
+        const newErrors = {};
+
+
+        if (!title) {
+            newErrors.title = "Title is required.";
+        }
+        if (!description) {
+            newErrors.description = "Description is required.";
+        }
+        if (!dueDate) {
+            newErrors.dueDate = "End Date is required.";
+        }
+
+        return newErrors;
+    }
+
+    function resetForm() {
+        setTitle('');
+        setDescription('');
+        setDueDate('');
+        setErrors({});
+    }
+
+    async function addTask(event){
+        event.preventDefault();
+
+        setErrors({});
+
+        const formErrors = validateForm();
+
+        if (Object.keys(formErrors).length > 0) {
+            setErrors(formErrors);
+            return;
+        }
+
+        const task = {
+            title,
+            description,
+            dueDate: dueDate ? new Date(dueDate).toISOString() : dueDate.toISOString()
+        }
+
+        const token = localStorage.getItem("JwtToken");
+
+        try {
+
+            const response = await axios.post("http://localhost:5065/Task/add",  task ,
+                {
+                    headers:
+                    {
+                        Authorization: `Bearer ${token}`,
+                    },
+                })
+            if (response.status === 200) {
+                onAdded();
+                setErrors({});
+                onClose();
+            }
+        }
+        catch (error) {
+            setErrors(error.response.data.errors);
+            console.log(error);
+        }
+
+    }
+
+
+
   return (
     <div
       className="AddTaskContainer"
       id="addTaskContainer"
       style={{ visibility: isVisible ? "visible" : "hidden" }}
     >
-      <form className="AddEventForm">
+          <form className="AddEventForm" onSubmit={ (event) => addTask(event) }>
         <div className="InputInformation">
           <label>Title:</label>
-          <input type="text"></input>
-          <p className="ErrorInformation">Danger Text!</p>
+          <input type="text" value={title} onChange={(e) => setTitle(e.target.value) } placeholder="Title"></input>
+                  <p className="ErrorInformation">{errors.title}</p>
 
           <label>Description:</label>
-          <input type="text"></input>
-          <p className="ErrorInformation">Danger Text!</p>
+                  <input type="text" value={description} onChange={(e) => setDescription(e.target.value) } placeholder="Description"></input>
+          <p className="ErrorInformation">{errors.description}</p>
 
           <label>End Date:</label>
-          <input type="date"></input>
-          <p className="ErrorInformation">Danger Text!</p>
+          <input type="date" value={dueDate} onChange={(e) => setDueDate(e.target.value) } placeholder="Date"></input>
+                  <p className="ErrorInformation">{errors.dueDate}</p>
         </div>
         <div className="buttons">
           <button className="AddTask" type="submit">
             AddTask
           </button>
-          <button className="ResetInput" type="reset">
+            <button className="ResetInput" type="reset" onClick={ resetForm }>
             Reset
           </button>
           <button className="CloseForm" type="button" onClick={onClose}>
@@ -40,7 +118,8 @@ function AddTaskForm({ isVisible, onClose }) {
 
 AddTaskForm.propTypes = {
   isVisible: PropTypes.boolean,
-  onClose: PropTypes.func,
+    onClose: PropTypes.func,
+    onAdded: PropTypes.func,
 };
 
 export default AddTaskForm;
