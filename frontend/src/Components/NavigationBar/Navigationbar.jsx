@@ -1,11 +1,9 @@
-import { Link , useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./NavigationBar.css";
-import axios from 'axios';
+import axios from "axios";
 
 function Navigationbar({ onLogout }) {
-
   const userLoggedIn = localStorage.getItem("loggedIn") === "true";
-
 
   return (
     <nav className="navigationContainer">
@@ -15,7 +13,7 @@ function Navigationbar({ onLogout }) {
             <Link to="/TaskList" className="LinkButton">
               Task Menu
             </Link>
-              <Link className="LinkButton" onClick={onLogout}>
+            <Link className="LinkButton" onClick={onLogout}>
               Logout
             </Link>
           </>

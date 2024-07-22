@@ -32,7 +32,7 @@ namespace TaskManagementApp.API.Controllers
         }
 
 
-        [Authorize]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost("add")]
         public async Task<IActionResult> CreateTask(UserTaskDTO task)
         {
@@ -58,7 +58,7 @@ namespace TaskManagementApp.API.Controllers
             return Ok(SuccessResponse);
         }
 
-        [Authorize]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost("update")]
         public async Task<IActionResult> ModifyTask(UserTaskDTO task)
         {
@@ -85,7 +85,7 @@ namespace TaskManagementApp.API.Controllers
             return Ok(successResponse);
         }
 
-        [Authorize]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost("delete")]
         public async Task<IActionResult> DeleteTask(UserTaskDTO task)
         {
@@ -104,7 +104,7 @@ namespace TaskManagementApp.API.Controllers
 
         }
 
-        [Authorize]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet("{id}")]
         public IActionResult GetTaskById(int id)
         {

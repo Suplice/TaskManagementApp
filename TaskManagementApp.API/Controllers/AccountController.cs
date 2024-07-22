@@ -147,5 +147,13 @@ namespace TaskManagementApp.API.Controllers
             return Ok();
         }
 
+
+        [Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme)]
+        [HttpGet("validateToken")]
+        public IActionResult ValidateToken()
+        {
+            return Ok();
+        }
+
     }
 }
