@@ -1,33 +1,133 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import "./Register.css";
+import { useState } from 'react';
+import axios from 'axios';
+
 
 function Register() {
+
+    const [userName, setUserName] = useState('');
+    const [email, setEmail] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [password, setPassword] = useState('');
+
+    const [errors, setErrors] = useState({});
+
+    const navigate = useNavigate();
+
+    function resetInput() {
+        setUserName('');
+        setEmail('');
+        setPhoneNumber('');
+        setPassword('');
+
+        setErrors({});
+
+    }
+
+    function validateData() {
+        const newErrors = {};
+
+        if (!userName) {
+            newErrors.Login = "Username field is required."; 
+        }
+
+        if (!email) {
+            newErrors.Email = "Email field is required.";
+        }
+
+        if (!phoneNumber) {
+            newErrors.PhoneNumber = "Phone number field is required.";
+        }
+
+        if (!password) {
+            newErrors.Password = "password field is required.";
+        }
+
+        return newErrors;
+    }
+
+
+    async function registerUser(event) {
+        event.preventDefault();
+
+        setErrors({});
+
+        const formErrors = validateData();
+
+        if (Object.keys(formErrors).length > 0) {
+            setErrors(formErrors);
+            return;
+        }
+
+
+        const registerData = {
+            Login: userName,
+            Password: password,
+            Email: email,
+            PhoneNumber: phoneNumber
+        };
+
+        const token = localStorage.getItem("JwtToken");
+
+
+        try {
+
+            const response = await axios.post("http://localhost:5065/Account/register", registerData, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            })
+
+            if (response.status === 200) {
+                navigate("/login");
+            }
+
+        }
+        catch (error){
+            setErrors(error.response.data.errors);
+            console.log(errors);
+        }
+
+
+    }
+
+
+
+
+
   return (
     <div className="RegisterContainer">
       <div className="InputData">
-        <form className="RegisterForm">
+              <form className="RegisterForm" onSubmit={(event) => registerUser(event) }>
           <div className="Inputs">
             <label>Username:</label>
-            <input type="text"></input>
-            <p className="ErrorInformation">Username Error!</p>
+                      <input type="text" value={ userName } onChange={(e) => setUserName(e.target.value)} placeholder="TestUser"></input>
+            <p className="ErrorInformation">{ errors.Login }</p>
 
             <label>Email:</label>
-            <input type="email"></input>
-            <p className="ErrorInformation">Email error!</p>
+                      <input type="email" value={ email } onChange={(e) => setEmail(e.target.value) } placeholder="TestUser@test.com"></input>
+            <p className="ErrorInformation">{ errors.Email }</p>
 
             <label>Phone number:</label>
-            <input type="tel"></input>
-            <p className="ErrorInformation">Phone number error!</p>
+                      <input type="tel" value={ phoneNumber } onChange={(e) => setPhoneNumber(e.target.value) } placeholder="123-123-123"></input>
+                      <p className="ErrorInformation">{ errors.PhoneNumber }</p>
 
             <label>Password:</label>
-            <input type="password"></input>
-            <p className="ErrorInformation">Password error!</p>
+                      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="*******"></input>
+                      {errors.Password &&
+                          <div className="ErrorInformation">
+                              {Array.isArray(errors.Password) ? errors.Password.map((error, index) => (
+                                  <p className="ErrorInformation" key={index}>{error}</p>
+                              )) : <p className="ErrorInformation" >{errors.Password}</p>}
+                          </div>
+                      }
           </div>
           <div className="buttons">
             <button className="RegisterButton" type="submit">
               Register
             </button>
-            <button className="ResetButton" type="reset">
+                      <button className="ResetButton" type="reset" onClick={resetInput }>
               Reset
             </button>
           </div>

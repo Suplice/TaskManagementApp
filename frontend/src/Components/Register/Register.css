@@ -11,7 +11,7 @@ body {
   align-items: center;
 }
 .InputData {
-  min-height: 550px;
+  min-height: 500px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -46,7 +46,7 @@ input {
   margin: 0;
   margin-bottom: 10px;
   color: hsl(0, 82%, 56%);
-  font-size: 15px;
+  font-size: 12px;
 }
 .buttons {
   display: flex;

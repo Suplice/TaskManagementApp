@@ -78,7 +78,7 @@ namespace TaskManagementApp.API.Controllers
             if (!registerResult.Succeeded) {
                 foreach (var error in registerResult.Errors)
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    ModelState.AddModelError("Password", error.Description);
                 }
 
                 var errors = GetModelStateErrors(ModelState);
