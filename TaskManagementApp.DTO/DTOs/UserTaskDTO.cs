@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
+using TaskManagementApp.DTO.DTOAttributes;
 
 namespace TaskManagementApp.DTO.DTOs
 {

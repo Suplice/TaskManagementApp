@@ -11,7 +11,7 @@ namespace TaskManagementApp.Core.ServiceInterfaces
 {
     public interface ITaskService
     {
-        Task<bool> CreateTask(UserTaskDTO task);
+        Task<bool> CreateTask(AddTaskRequest task);
 
         Task<bool> ModifyTask(UserTaskDTO task);
 

@@ -23,7 +23,7 @@ namespace TaskManagementApp.Core.Services
             _taskRepository = taskRepository;
             _httpContextAccessor = httpContextAccessor;
         }   
-        public async Task<bool> CreateTask(UserTaskDTO task)
+        public async Task<bool> CreateTask(AddTaskRequest task)
         {
             var CurrentUserId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
@@ -34,11 +34,11 @@ namespace TaskManagementApp.Core.Services
 
             UserTask userTask = new()
             { 
-            Title = task.Title,
-            Description = task.Description,
-            IsCompleted = task.IsCompleted,
-            StartDate = task.StartDate,
-            DueDate = task.DueDate,
+            Title = task.title,
+            Description = task.description,
+            IsCompleted = false,
+            StartDate = DateTime.Now,
+            DueDate = task.dueDate,
             UserId = CurrentUserId
             };
 

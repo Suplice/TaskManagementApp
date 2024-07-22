@@ -34,13 +34,13 @@ namespace TaskManagementApp.API.Controllers
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost("add")]
-        public async Task<IActionResult> CreateTask(UserTaskDTO task)
+        public async Task<IActionResult> CreateTask(AddTaskRequest task)
         {
             if (!ModelState.IsValid)
             {
                 var errors = GetModelStateErrors(ModelState);
 
-                var response = new ApiResponse<UserTaskDTO>(false, "ModelState is Invalid", task, errors);
+                var response = new ApiResponse<AddTaskRequest>(false, "ModelState is Invalid", task, errors);
 
                 return BadRequest(response);
             }
@@ -49,11 +49,11 @@ namespace TaskManagementApp.API.Controllers
 
             if (addedTaskResult == false)
             {
-                var response = new ApiResponse<UserTaskDTO>(false, "An error occured while trying to create task", task);
+                var response = new ApiResponse<AddTaskRequest>(false, "An error occured while trying to create task", task);
                 return BadRequest(response);
             }
 
-            var SuccessResponse = new ApiResponse<UserTaskDTO>(true, "Event was successfully added", task);
+            var SuccessResponse = new ApiResponse<AddTaskRequest>(true, "Event was successfully added", task);
 
             return Ok(SuccessResponse);
         }
