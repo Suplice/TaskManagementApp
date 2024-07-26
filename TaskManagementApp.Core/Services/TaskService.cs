@@ -38,7 +38,7 @@ namespace TaskManagementApp.Core.Services
             Description = task.description,
             IsCompleted = false,
             StartDate = DateTime.Now,
-            DueDate = task.dueDate,
+            DueDate = DateTime.SpecifyKind(task.dueDate, DateTimeKind.Utc),
             UserId = CurrentUserId
             };
 
@@ -93,7 +93,7 @@ namespace TaskManagementApp.Core.Services
                 {
                     Description = task.Description,
                     Title = task.Title,
-                    DueDate = task.DueDate,
+                    DueDate = DateTime.SpecifyKind(task.DueDate, DateTimeKind.Utc),
                     StartDate = task.StartDate,
                     IsCompleted = task.IsCompleted,
                     TaskId = task.TaskId

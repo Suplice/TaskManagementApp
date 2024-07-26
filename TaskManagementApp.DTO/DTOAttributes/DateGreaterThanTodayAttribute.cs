@@ -11,9 +11,9 @@ namespace TaskManagementApp.DTO.DTOAttributes
     {
         protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
         {
-            var currentValue = (DateTime)value;
+            var currentValue = DateTime.SpecifyKind((DateTime)value, DateTimeKind.Utc);
 
-            if (currentValue <= DateTime.Now)
+            if (currentValue <= DateTime.UtcNow)
             {
                 return new ValidationResult(ErrorMessage ?? "DueDate must be later than actual date");
             }
