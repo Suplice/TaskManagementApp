@@ -11,6 +11,11 @@ function AddTaskForm({ isVisible, onClose, onAdded }) {
 
     const [errors, setErrors] = new useState({});
 
+    function handleOnClose() {
+        resetForm();
+        onClose();
+    }
+
     function validateForm() {
 
         const newErrors = {};
@@ -73,6 +78,7 @@ function AddTaskForm({ isVisible, onClose, onAdded }) {
         }
         catch (error) {
             setErrors(error.response.data.errors);
+            resetForm();
             console.log(error);
         }
 
@@ -97,7 +103,7 @@ function AddTaskForm({ isVisible, onClose, onAdded }) {
           <p className="ErrorInformation">{errors.description}</p>
 
           <label>End Date:</label>
-          <input type="date" value={dueDate} onChange={(e) => setDueDate(e.target.value) } placeholder="Date"></input>
+          <input type="datetime-local" value={dueDate} onChange={(e) => setDueDate(e.target.value) } placeholder="Date"></input>
                   <p className="ErrorInformation">{errors.dueDate}</p>
         </div>
         <div className="buttons">
@@ -107,7 +113,7 @@ function AddTaskForm({ isVisible, onClose, onAdded }) {
             <button className="ResetInput" type="reset" onClick={ resetForm }>
             Reset
           </button>
-          <button className="CloseForm" type="button" onClick={onClose}>
+          <button className="CloseForm" type="button" onClick={handleOnClose}>
             Close
           </button>
         </div>

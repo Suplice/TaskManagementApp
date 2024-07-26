@@ -13,6 +13,11 @@ function Task({ task, onTaskUpdated }) {
 
     let taskUnCompletedColor = "#A52A2A"
 
+    let taskOverDueColor = "#4169E1";
+
+
+
+
     function formatDate(dateString) {
         try {
             const date = parseISO(dateString);
@@ -25,17 +30,23 @@ function Task({ task, onTaskUpdated }) {
     }
 
 
+    function handleTaskBackgroundShadow() {
 
-  //function formatDate(dateString) {
-  //  const date = new Date(dateString);
-  //  const year = date.getFullYear();
-  //  const month = String(date.getMonth() + 1).padStart(2, "0");
-  //  const day = String(date.getDate()).padStart(2, "0");
-  //  const hour = String(date.getHours()).padStart(2, "0");
-  //  const minute = String(date.getMinutes()).padStart(2, "0");
+        const _dueDate = new Date(dueDate);
+        const _currentDate = new Date();
 
-  //  return `${year}-${month}-${day} ${hour}:${minute}`;
-  //}
+        if (isCompleted) {
+            return `0 6px 20px 7px ${taskCompletedColor}`;
+        }
+        else if (_currentDate > _dueDate) {
+            return `0 6px 20px 7px ${taskOverDueColor}`;
+        }
+        else {
+            return `0 6px 20px 7px ${taskUnCompletedColor}`;
+        }
+    }
+
+
 
     async function handleCompleteTask() {
         if (isCompleted) {
@@ -95,7 +106,7 @@ function Task({ task, onTaskUpdated }) {
     }
 
     return (
-        <div className="Task-container" style={isCompleted ? { boxShadow: `0 6px 20px 0 ${taskCompletedColor}, 0 6px 30px 0 ${taskCompletedColor}` } : { boxShadow: `0 6px 20px 0 ${taskUnCompletedColor}, 0 6px 30px 0 ${taskUnCompletedColor}` } }>
+        <div className="Task-container" style={{ boxShadow: handleTaskBackgroundShadow() }}>
       <div className="TaskInformation">
         <div className="TaskTitle">Title: {title}</div>
         <div className="TaskDescription">Description: {description} </div>
