@@ -94,7 +94,7 @@ namespace TaskManagementApp.Core.Services
                     Description = task.Description,
                     Title = task.Title,
                     DueDate = task.DueDate,
-                    StartDate = DateTime.Now,
+                    StartDate = task.StartDate,
                     IsCompleted = task.IsCompleted,
                     TaskId = task.TaskId
                     
