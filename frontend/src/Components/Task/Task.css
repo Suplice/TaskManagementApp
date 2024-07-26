@@ -8,9 +8,7 @@
   margin-bottom: 30px;
   background-color: hsl(0, 2%, 65%);
   border-radius: 20px;
-  box-shadow:
-    0 10px 20px 0 rgba(0, 0, 0, 0.24),
-    0 16px 40px 0 rgba(0, 0, 0, 0.19);
+
 }
 
 .TaskInformation {

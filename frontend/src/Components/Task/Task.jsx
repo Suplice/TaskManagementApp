@@ -1,6 +1,7 @@
 import "./Task.css";
 import axios from 'axios';
 import { useState } from 'react';
+import { format, parseISO } from 'date-fns';
 
 function Task({ task, onTaskUpdated }) {
 
@@ -8,17 +9,33 @@ function Task({ task, onTaskUpdated }) {
 
     let { taskId, title, description, isCompleted, startDate, dueDate } = task;
 
+    let taskCompletedColor = "#00FF7F";
 
-  function formatDate(dateString) {
-    const date = new Date(dateString);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDay()).padStart(2, "0");
-    const hour = String(date.getHours()).padStart(2, "0");
-    const minute = String(date.getMinutes()).padStart(2, "0");
+    let taskUnCompletedColor = "#A52A2A"
 
-    return `${year}-${month}-${day} ${hour}:${minute}`;
-  }
+    function formatDate(dateString) {
+        try {
+            const date = parseISO(dateString);
+            return format(date, 'yyyy-MM-dd HH:mm');
+        }
+        catch (error) {
+            console.error("Invalid date format", dateString);
+            return null;
+        }
+    }
+
+
+
+  //function formatDate(dateString) {
+  //  const date = new Date(dateString);
+  //  const year = date.getFullYear();
+  //  const month = String(date.getMonth() + 1).padStart(2, "0");
+  //  const day = String(date.getDate()).padStart(2, "0");
+  //  const hour = String(date.getHours()).padStart(2, "0");
+  //  const minute = String(date.getMinutes()).padStart(2, "0");
+
+  //  return `${year}-${month}-${day} ${hour}:${minute}`;
+  //}
 
     async function handleCompleteTask() {
         if (isCompleted) {
@@ -39,6 +56,7 @@ function Task({ task, onTaskUpdated }) {
                 if (response.status === 200) {
                     setTaskState(updatedTask);
                     onTaskUpdated();
+                    console.log(updatedTask);
                 }
                 else {
                     alert("an error occured while trying to complete task");
@@ -76,8 +94,8 @@ function Task({ task, onTaskUpdated }) {
         }
     }
 
-  return (
-    <div className="Task-container">
+    return (
+        <div className="Task-container" style={isCompleted ? { boxShadow: `0 6px 20px 0 ${taskCompletedColor}, 0 6px 30px 0 ${taskCompletedColor}` } : { boxShadow: `0 6px 20px 0 ${taskUnCompletedColor}, 0 6px 30px 0 ${taskUnCompletedColor}` } }>
       <div className="TaskInformation">
         <div className="TaskTitle">Title: {title}</div>
         <div className="TaskDescription">Description: {description} </div>
