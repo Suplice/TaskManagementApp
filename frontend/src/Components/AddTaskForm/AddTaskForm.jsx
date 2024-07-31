@@ -63,7 +63,7 @@ function AddTaskForm({ isVisible, onClose, onAdded }) {
 
         try {
 
-            const response = await axios.post("http://localhost:5065/Task/add",  task ,
+            const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/Task/add`,  task ,
                 {
                     headers:
                     {
@@ -78,8 +78,7 @@ function AddTaskForm({ isVisible, onClose, onAdded }) {
         }
         catch (error) {
             setErrors(error.response.data.errors);
-            resetForm();
-            console.log(error);
+            setDueDate('');
         }
 
     }

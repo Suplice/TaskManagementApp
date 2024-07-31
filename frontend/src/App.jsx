@@ -37,7 +37,7 @@ function App() {
 
             if (token) {
                 try {
-                    const response = await axios.get("http://localhost:5065/Account/validateToken",
+                    const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/Account/validateToken`,
                         {
                             headers: {
                                 Authorization: `Bearer ${token}`,
@@ -57,7 +57,6 @@ function App() {
 
                 }
                 catch (error) {
-                    console.log("Token validation error", error);
                     setIsLoggedIn("false");
                     localStorage.setItem("loggedIn", "false");
                     localStorage.setItem("userName", "");
@@ -80,9 +79,8 @@ function App() {
   async function handleLogout() {
     try {
       const token = localStorage.getItem("JwtToken");
-      console.log(token);
       const response = await axios.post(
-        "http://localhost:5065/Account/logout",
+          `${import.meta.env.VITE_API_BASE_URL}/Account/logout`,
         {},
         {
           headers: {
@@ -96,7 +94,7 @@ function App() {
       localStorage.setItem("userName", "");
       setIsLoggedIn("false");
     } catch (error) {
-      console.log(error);
+        alert("An error occured while trying to log out");
     }
   }
 

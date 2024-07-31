@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskManagementApp.Data", "T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskManagementApp.DTO", "TaskManagementApp.DTO\TaskManagementApp.DTO.csproj", "{C2F20295-1A31-414E-BBBA-2ED2B6A8A9E7}"
 EndProject
-Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "frontend", "Frontend\frontend.esproj", "{2F25C1AC-0F76-48AA-B9B3-6DBAEA306671}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,12 +33,6 @@ Global
 		{C2F20295-1A31-414E-BBBA-2ED2B6A8A9E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2F20295-1A31-414E-BBBA-2ED2B6A8A9E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2F20295-1A31-414E-BBBA-2ED2B6A8A9E7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2F25C1AC-0F76-48AA-B9B3-6DBAEA306671}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2F25C1AC-0F76-48AA-B9B3-6DBAEA306671}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2F25C1AC-0F76-48AA-B9B3-6DBAEA306671}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{2F25C1AC-0F76-48AA-B9B3-6DBAEA306671}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2F25C1AC-0F76-48AA-B9B3-6DBAEA306671}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2F25C1AC-0F76-48AA-B9B3-6DBAEA306671}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

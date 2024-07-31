@@ -68,15 +68,13 @@ function Register() {
             PhoneNumber: phoneNumber
         };
 
-        const token = localStorage.getItem("JwtToken");
+ 
 
 
         try {
 
-            const response = await axios.post("http://localhost:5065/Account/register", registerData, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                }
+            const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/Account/Register`, registerData, {
+
             })
 
             if (response.status === 200) {
@@ -86,7 +84,6 @@ function Register() {
         }
         catch (error){
             setErrors(error.response.data.errors);
-            console.log(errors);
         }
 
 
@@ -110,7 +107,7 @@ function Register() {
             <p className="ErrorInformation">{ errors.Email }</p>
 
             <label>Phone number:</label>
-                      <input type="tel" value={ phoneNumber } onChange={(e) => setPhoneNumber(e.target.value) } placeholder="123-123-123"></input>
+                      <input type="tel" value={ phoneNumber } onChange={(e) => setPhoneNumber(e.target.value) } placeholder="123456789"></input>
                       <p className="ErrorInformation">{ errors.PhoneNumber }</p>
 
             <label>Password:</label>

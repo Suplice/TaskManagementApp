@@ -49,9 +49,8 @@ function TaskList() {
   async function fetchTasks() {
     try {
       const token = localStorage.getItem("JwtToken");
-      console.log(token);
       const response = await axios.get(
-        "http://localhost:5065/Task/GetAllTasksByUserId",
+          `${import.meta.env.VITE_API_BASE_URL}/Task/GetAllTasksByUserId`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -59,10 +58,9 @@ function TaskList() {
         },
       );
 
-      console.log(response.data.data);
       setTasks(response.data.data);
     } catch (error) {
-      console.log(error);
+        alert("An error occured while trying to fetch tasks");
     }
     }
 

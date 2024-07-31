@@ -18,24 +18,21 @@ function Login({ onLogin }) {
 
     try {
       const response = await axios.post(
-        "http://localhost:5065/Account/login",
+          `${import.meta.env.VITE_API_BASE_URL}/Account/login`,
         formData,
       );
 
-      console.log(response);
       localStorage.setItem("JwtToken", response.data.jwtToken);
       localStorage.setItem("loggedIn", "true");
       localStorage.setItem("userName", response.data.data.login);
       onLogin();
     } catch (error) {
-      console.log("login error:", error);
 
       setErrorMessage("- Invalid login or password, please try again.");
       setFormData((prevState) => ({
         ...prevState,
         Password: "",
       }));
-      console.log(errorMessage);
     }
   }
 
@@ -47,7 +44,6 @@ function Login({ onLogin }) {
       [name]: value,
     }));
 
-    console.log();
   }
 
   return (

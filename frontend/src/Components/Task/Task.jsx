@@ -24,7 +24,6 @@ function Task({ task, onTaskUpdated }) {
             return format(date, 'yyyy-MM-dd HH:mm');
         }
         catch (error) {
-            console.error("Invalid date format", dateString);
             return null;
         }
     }
@@ -58,7 +57,7 @@ function Task({ task, onTaskUpdated }) {
 
 
             try {
-                const response = await axios.post("http://localhost:5065/Task/update",  updatedTask , {
+                const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/Task/Update`,  updatedTask , {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     }
@@ -67,7 +66,6 @@ function Task({ task, onTaskUpdated }) {
                 if (response.status === 200) {
                     setTaskState(updatedTask);
                     onTaskUpdated();
-                    console.log(updatedTask);
                 }
                 else {
                     alert("an error occured while trying to complete task");
@@ -84,7 +82,7 @@ function Task({ task, onTaskUpdated }) {
         const token = localStorage.getItem("JwtToken");
 
         try {
-            const response = await axios.post("http://localhost:5065/Task/delete", taskState, {
+            const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/Task/delete`, taskState, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 }
@@ -93,7 +91,6 @@ function Task({ task, onTaskUpdated }) {
 
 
             if (response.status === 200) {
-                console.log(response);
                 onTaskUpdated();
             }
             else{
