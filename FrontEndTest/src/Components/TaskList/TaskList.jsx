@@ -78,6 +78,22 @@ function TaskList() {
         setIsDropdownVisible(!isDropdownVisible);
     }
 
+    const setTasksByTitle = (text) => {
+        if (text === '') {
+            return;
+        }
+
+        const filtered = tasks.filter(task =>
+            task.title.toLowerCase().includes(text.toLowerCase()) // Correct method names
+        );
+
+        // Update the filteredTasks state with the filtered results
+        setFilteredTasks(filtered);
+
+        return;
+    }
+
+
     const listTasks = filteredTasks.map((task) => (
         <Task
             key={task.taskId}
@@ -86,9 +102,12 @@ function TaskList() {
         ></Task>
     ));
 
+
+ 
+
   return (
       <div className="MainContainer">
-        <SearchBar></SearchBar>
+          <SearchBar onSearch={ setTasksByTitle }></SearchBar>
             <div className="TaskMenu-Container">
                 {isFormVisible && <div className="Overlay" onClick={hideForm}></div>}
                 <AddTaskForm isVisible={isFormVisible} onClose={hideForm} onAdded={fetchTasks}></AddTaskForm>
