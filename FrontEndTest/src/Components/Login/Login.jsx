@@ -28,7 +28,7 @@ function Login({ onLogin }) {
       onLogin();
     } catch (error) {
 
-      setErrorMessage("- Invalid login or password, please try again.");
+      setErrorMessage("Invalid login or password, please try again.");
       setFormData((prevState) => ({
         ...prevState,
         Password: "",

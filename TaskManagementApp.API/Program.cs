@@ -29,7 +29,7 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(buil
 
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 var secretKey = builder.Configuration.GetSection("JwtSettings:SecretKey").Get<string>();
-
+var connectionLink = builder.Configuration.GetSection("TaskManagementFrontEnd:ConnectionLink").Get<string>();
 
 builder.Services.Configure<JwtSettings>(jwtSettings);
 
@@ -59,7 +59,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowReactDevClient",
         builder =>
         {
-            builder.WithOrigins("http://localhost:3000")
+            builder.WithOrigins(connectionLink)
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials();

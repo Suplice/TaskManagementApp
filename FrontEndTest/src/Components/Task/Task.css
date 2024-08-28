@@ -2,13 +2,18 @@
   border: 2px solid black;
   display: flex;
   flex-direction: row;
-  width: 700px;
-  height: 250px;
+  width: 35vw;
+  height: 25vh;
   box-sizing: border-box;
   margin-bottom: 30px;
   background-color: hsl(0, 2%, 65%);
   border-radius: 20px;
+  transition: all linear 0.5s;
 
+}
+
+.Task-container:hover {
+    transform: scale(105%);
 }
 
 .TaskInformation {
@@ -22,7 +27,7 @@
 .TaskStartTime,
 .TaskEndTime,
 .TaskCompletionStatus {
-  padding: 10px;
+  padding: 1%;
   width: 90%;
 }
 

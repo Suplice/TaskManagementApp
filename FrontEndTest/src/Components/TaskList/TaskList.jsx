@@ -90,14 +90,22 @@ function TaskList() {
             <div className="TaskMenu-Container">
                 {isFormVisible && <div className="Overlay" onClick={hideForm}></div>}
                 <AddTaskForm isVisible={isFormVisible} onClose={hideForm} onAdded={fetchTasks}></AddTaskForm>
-                <div className="Controls">
+              <div className="Controls">
+                  <div>
+                      <button className="BlankButton">
+                          Add Task
+                      </button>
+                  </div>
+                  <div>
                     <button className="AddEventButton" onClick={showForm}>
                         Add Task
-                    </button>
-                    <div className="FilterDropdown">
+                      </button>
+                  </div>
+                    <div>
                         <button className="FilterButton" onClick={toggleDropdown}>
                             Filter Tasks
-                        </button>
+                      </button>
+                    </div>
                         {isDropdownVisible && (
                           <div className={`DropdownContent ${isDropdownVisible ? 'show' : ''}`}>
                                 <label>
@@ -126,8 +134,8 @@ function TaskList() {
                                 </label>
                             </div>
                         )}
-                    </div>
-                </div>
+
+              </div>
                 <div className="Tasks">{listTasks}</div>
             </div>
         </div>
