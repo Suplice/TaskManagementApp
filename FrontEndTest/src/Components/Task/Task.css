@@ -2,8 +2,8 @@
   border: 2px solid black;
   display: flex;
   flex-direction: row;
-  width: 35vw;
-  height: 25vh;
+  width: 110%;
+  height: 100%;
   box-sizing: border-box;
   margin-bottom: 30px;
   background-color: hsl(0, 2%, 65%);
@@ -27,12 +27,12 @@
 .TaskStartTime,
 .TaskEndTime,
 .TaskCompletionStatus {
-  padding: 1%;
+  padding: 5px;
   width: 90%;
 }
 
 .TaskDescription {
-  padding: 10px;
+  padding: 5px;
   word-wrap: break-word;
   white-space: normal;
   width: 90%;

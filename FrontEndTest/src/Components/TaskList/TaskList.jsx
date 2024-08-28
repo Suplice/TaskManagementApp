@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Task from "../Task/Task.jsx";
 import AddTaskForm from "../AddTaskForm/AddTaskForm.jsx";
 import axios from "axios";
+import SearchBar from "../SearchBar/SearchBar.jsx";
 function TaskList() {
     const [isFormVisible, setIsFormVisible] = new useState(false);
 
@@ -86,7 +87,8 @@ function TaskList() {
     ));
 
   return (
-        <div className="MainContainer">
+      <div className="MainContainer">
+        <SearchBar></SearchBar>
             <div className="TaskMenu-Container">
                 {isFormVisible && <div className="Overlay" onClick={hideForm}></div>}
                 <AddTaskForm isVisible={isFormVisible} onClose={hideForm} onAdded={fetchTasks}></AddTaskForm>
