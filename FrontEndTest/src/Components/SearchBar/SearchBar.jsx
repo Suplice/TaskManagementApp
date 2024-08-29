@@ -1,12 +1,13 @@
+import { set } from '../../../node_modules/date-fns/set';
 import './SearchBar.css';
 import { useState, useEffect } from 'react';
 
-function SearchBar({ onSearch, tasks }) {
+function SearchBar({ onSearch, tasks, onSearchSelectTask, onShowAllTasks }) {
 
     const [placeholder, setPlaceholder] = useState('Search...');
     const [text, setText] = useState('');
     const [removeIconVisibility, setRemoveIconVisibility] = useState(false);
-    const [isSearchFastResultsVisible, setIsSearchResultsVisible] = useState(false);
+    const [isSearchResultsVisible, setIsSearchResultsVisible] = useState(false);
     const [searchResults, setSearchResults] = useState([]);
 
     useEffect(() => {
@@ -35,7 +36,7 @@ function SearchBar({ onSearch, tasks }) {
             }
             else {
                 setSearchResults(filteredTasks.map((task) => (
-                    <div id="searchItem" key={task.taskId} > {task.title} </div>
+                    <div id="searchItem" key={task.taskId} onClick={ () => handleSearchTask(task) }> {task.title} </div>
                 )));
             }
 
@@ -62,15 +63,29 @@ function SearchBar({ onSearch, tasks }) {
         onSearch('');
     };
 
+    const handleSearchTask = (task) => {
+
+        setIsSearchResultsVisible(false);
+        onSearchSelectTask(task);
+    }
+
+    const handleShowAllTasks = () => {
+        setText('');
+        onShowAllTasks();
+    };
+
   
 
     return (<div id="searchSection">
-        <div id="SearchBarBox">
-        <input id="SearchText" autoComplete="off" value={text} onChange={(event) => { setText(event.target.value) }} placeholder={placeholder} onBlur={() => { setPlaceholder('Search...') }} onFocus={() => { setPlaceholder('') }}></input>
-        <img src='/public/removeSearchIcon.jpg' id='removeIcon' hidden={removeIconVisibility} onClick={handleRemoveIconClick }></img>
-        <img src='/public/SearchIcon.png' id='searchIcon' onClick={handleSearchClick}></img>
+        <div id = "revertAndInput">
+            <img src="/public/revertImage.png" id="revertImage" onClick={ handleShowAllTasks }></img>
+             <div id="SearchBarBox">
+             <input id="SearchText" autoComplete="off" value={text} onChange={(event) => { setText(event.target.value) }} placeholder={placeholder} onBlur={() => { setPlaceholder('Search...') }} onFocus={() => { setPlaceholder('') }}></input>
+             <img src='/public/removeSearchIcon.jpg' id='removeIcon' hidden={removeIconVisibility} onClick={handleRemoveIconClick }></img>
+             <img src='/public/SearchIcon.png' id='searchIcon' onClick={handleSearchClick}></img>
+            </div>
         </div>
-        {isSearchFastResultsVisible && <div id="lowerSection">
+        {isSearchResultsVisible && <div id="lowerSection">
             {searchResults}
         </div> }
     </div>);

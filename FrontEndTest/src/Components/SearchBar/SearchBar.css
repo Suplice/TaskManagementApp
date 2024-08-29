@@ -12,13 +12,6 @@
     justify-content: space-between;
 }
 
-input:-webkit-autofill {
-    background-color: transparent; /* Prevents background color changes */
-    color: black; /* Ensures text color remains consistent */
-}
-
-
-
 #searchIcon {
     width: auto;
     height: 90%;
@@ -72,6 +65,7 @@ input:-webkit-autofill {
     align-items: center;
     scrollbar-width: thin;
     scrollbar-color: rgba(0, 0, 0, 0.3) rgba(0, 0, 0, 0);
+    margin-left: 60px;
 }
 
 
@@ -126,5 +120,22 @@ input:-webkit-autofill {
 #searchSection {
     display: flex;
     flex-direction: column;
+    
 
+}
+
+#revertImage{
+    width: 40px;
+    height: 40px;
+    margin-top: 55px;
+    margin-right: 20px;
+}
+
+#revertImage:hover{
+    cursor: pointer;
+}
+
+#revertAndInput {
+    display: flex;
+    flex-direction: row;
 }

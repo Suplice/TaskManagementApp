@@ -1,5 +1,5 @@
 import "./TaskList.css";
-import { useState, useEffect, useRef} from "react";
+import { useState, useEffect} from "react";
 import Task from "../Task/Task.jsx";
 import AddTaskForm from "../AddTaskForm/AddTaskForm.jsx";
 import axios from "axios";
@@ -14,6 +14,10 @@ function TaskList() {
     const [isOverDue, setIsOverDue] = useState(false);
     const [isDropdownVisible, setIsDropdownVisible] = useState(false);
     const [searchText, setSearchText] = useState('');
+    const [showAllTasks, setShowAllTasks] = useState(false);
+    const [filterTaskId, setFilterTaskId] = useState(0);
+    const [searchTasks, setSearchTasks] = useState(false);
+    const [searchTasksById, setSearchTasksById] = useState(false);
 
 
 
@@ -24,8 +28,18 @@ function TaskList() {
 
 
     useEffect(() => {
+        console.log("something happened");
         function filterTasks() {
             var filteredTasks = tasks;
+
+            if (searchText) {
+                filteredTasks = filteredTasks.filter(task =>
+                    task.title.toLowerCase().includes(searchText.toLowerCase())
+                );
+            }
+            else {
+                filteredTasks = tasks;
+            }
 
             if (isCompleted) {
                 filteredTasks = filteredTasks.filter(task => task.isCompleted);
@@ -37,21 +51,27 @@ function TaskList() {
 
             if (isOverDue) {
                 filteredTasks = filteredTasks.filter(task => new Date(task.dueDate) < new Date());
+   
             }
-            if (searchText) {
-                filteredTasks = filteredTasks.filter(task =>
-                    task.title.toLowerCase().includes(searchText.toLowerCase())
-                );
+            if (showAllTasks) {
+                filteredTasks = tasks;
             }
+           
 
             setFilteredTasks(filteredTasks);
         }
 
 
         filterTasks();
-    }, [isCompleted, isNotCompleted, isOverDue, tasks, searchText]);
+    }, [isCompleted, isNotCompleted, isOverDue, tasks, searchText, showAllTasks, searchTasks]);
 
- 
+    useEffect(() => {
+        function filterTaskById() {
+            setFilteredTasks(tasks.filter((task) => task.taskId === filterTaskId));
+        }
+
+        filterTaskById();
+    }, [filterTaskId, searchTasksById]);
 
 
 
@@ -88,8 +108,25 @@ function TaskList() {
     }
 
     const setTasksByTitle = (text) => {
+        setShowAllTasks(false);
         setSearchText(text);
+        setSearchTasks(!searchTasks);
     }
+
+
+    const setFilteredTaskId = (task) => {
+        setFilterTaskId(task.taskId);
+        setSearchTasksById(!searchTasksById);
+    }
+
+    const showTasks = () =>  {
+        setShowAllTasks(true);
+        setIsCompleted(false);
+        setIsNotCompleted(false);
+        setIsOverDue(false);
+        setSearchTasks(!searchTasks);
+    }
+
 
 
     const listTasks = filteredTasks.map((task) => (
@@ -105,7 +142,7 @@ function TaskList() {
 
   return (
       <div className="MainContainer">
-          <SearchBar onSearch={setTasksByTitle} tasks={ filteredTasks }></SearchBar>
+          <SearchBar onSearch={setTasksByTitle} tasks={tasks} onSearchSelectTask={setFilteredTaskId} onShowAllTasks={ showTasks }></SearchBar>
             <div className="TaskMenu-Container">
                 {isFormVisible && <div className="Overlay" onClick={hideForm}></div>}
                 <AddTaskForm isVisible={isFormVisible} onClose={hideForm} onAdded={fetchTasks}></AddTaskForm>
@@ -128,34 +165,66 @@ function TaskList() {
                         {isDropdownVisible && (
                       <div  className={`DropdownContent ${isDropdownVisible ? 'show' : ''}`}>
                           <img src='/public/removeSearchIcon.jpg' id="exitFilterButton" onClick={toggleDropdown}></img>
+                                  <label>
+                                      <input
+                                          type="radio"
+                                          checked={showAllTasks}
+                                          onChange={() => {
+                                              setShowAllTasks(true);
+                                              setIsCompleted(false);
+                                              setIsNotCompleted(false);
+                                              setIsOverDue(false);
+                                          }}
+                                          name="taskFilter"
+                                      />
+                                      All
+                                  </label>
                                 <label>
                                     <input
-                                        type="checkbox"
+                                        type="radio"
                                         checked={isCompleted}
-                                        onChange={() => setIsCompleted(!isCompleted)}
+                                          onChange={() => {
+                                              setShowAllTasks(false);
+                                              setIsCompleted(true);
+                                              setIsNotCompleted(false);
+                                              setIsOverDue(false);
+                                          }}
+                                  name="taskFilter"
                                     />
                                     Completed
                                 </label>
                                 <label>
                                     <input
-                                        type="checkbox"
+                                        type="radio"
                                         checked={isNotCompleted}
-                                        onChange={() => setIsNotCompleted(!isNotCompleted)}
+                                  onChange={() => {
+                                      setShowAllTasks(false);
+                                      setIsCompleted(false);
+                                      setIsNotCompleted(true);
+                                      setIsOverDue(false);
+                                  }}
+                                  name="taskFilter"
                                     />
                                     Not Completed
                                 </label>
                                 <label>
                                     <input
-                                        type="checkbox"
+                                        type="radio"
                                         checked={isOverDue}
-                                        onChange={() => setIsOverDue(!isOverDue)}
+                                  onChange={() => {
+                                      setShowAllTasks(false);
+                                      setIsCompleted(false);
+                                      setIsNotCompleted(false);
+                                      setIsOverDue(true);
+                                  }}
+                                  name="taskFilter"
                                     />
                                     Overdue
                                 </label>
                             </div>
                         )}
 
-              </div>
+                        </div>
                 <div className="Tasks">{listTasks}</div>
             </div>
         </div>
