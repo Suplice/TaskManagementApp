@@ -1,5 +1,5 @@
 import "./TaskList.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef} from "react";
 import Task from "../Task/Task.jsx";
 import AddTaskForm from "../AddTaskForm/AddTaskForm.jsx";
 import axios from "axios";
@@ -14,6 +14,8 @@ function TaskList() {
     const [isOverDue, setIsOverDue] = useState(false);
     const [isDropdownVisible, setIsDropdownVisible] = useState(false);
     const [searchText, setSearchText] = useState('');
+
+
 
     useEffect(() => {
      fetchTasks();
@@ -48,6 +50,8 @@ function TaskList() {
 
         filterTasks();
     }, [isCompleted, isNotCompleted, isOverDue, tasks, searchText]);
+
+ 
 
 
 
@@ -101,7 +105,7 @@ function TaskList() {
 
   return (
       <div className="MainContainer">
-          <SearchBar onSearch={ setTasksByTitle }></SearchBar>
+          <SearchBar onSearch={setTasksByTitle} tasks={ filteredTasks }></SearchBar>
             <div className="TaskMenu-Container">
                 {isFormVisible && <div className="Overlay" onClick={hideForm}></div>}
                 <AddTaskForm isVisible={isFormVisible} onClose={hideForm} onAdded={fetchTasks}></AddTaskForm>
@@ -122,7 +126,8 @@ function TaskList() {
                       </button>
                     </div>
                         {isDropdownVisible && (
-                          <div className={`DropdownContent ${isDropdownVisible ? 'show' : ''}`}>
+                      <div  className={`DropdownContent ${isDropdownVisible ? 'show' : ''}`}>
+                          <img src='/public/removeSearchIcon.jpg' id="exitFilterButton" onClick={toggleDropdown}></img>
                                 <label>
                                     <input
                                         type="checkbox"
