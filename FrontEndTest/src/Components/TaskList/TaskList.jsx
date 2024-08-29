@@ -13,7 +13,7 @@ function TaskList() {
     const [isNotCompleted, setIsNotCompleted] = useState(false);
     const [isOverDue, setIsOverDue] = useState(false);
     const [isDropdownVisible, setIsDropdownVisible] = useState(false);
-
+    const [searchText, setSearchText] = useState('');
 
     useEffect(() => {
      fetchTasks();
@@ -36,13 +36,18 @@ function TaskList() {
             if (isOverDue) {
                 filteredTasks = filteredTasks.filter(task => new Date(task.dueDate) < new Date());
             }
+            if (searchText) {
+                filteredTasks = filteredTasks.filter(task =>
+                    task.title.toLowerCase().includes(searchText.toLowerCase())
+                );
+            }
 
             setFilteredTasks(filteredTasks);
         }
 
 
         filterTasks();
-    }, [isCompleted, isNotCompleted, isOverDue, tasks]);
+    }, [isCompleted, isNotCompleted, isOverDue, tasks, searchText]);
 
 
 
@@ -67,30 +72,19 @@ function TaskList() {
 
 
 
-  const showForm = () => {
-    setIsFormVisible(true);
-  };
-  const hideForm = () => {
-    setIsFormVisible(false);
-    };
+      const showForm = () => {
+        setIsFormVisible(true);
+      };
+      const hideForm = () => {
+        setIsFormVisible(false);
+        };
 
     const toggleDropdown = () => {
         setIsDropdownVisible(!isDropdownVisible);
     }
 
     const setTasksByTitle = (text) => {
-        if (text === '') {
-            return;
-        }
-
-        const filtered = tasks.filter(task =>
-            task.title.toLowerCase().includes(text.toLowerCase()) // Correct method names
-        );
-
-        // Update the filteredTasks state with the filtered results
-        setFilteredTasks(filtered);
-
-        return;
+        setSearchText(text);
     }
 
 
