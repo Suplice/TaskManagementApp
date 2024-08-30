@@ -73,7 +73,7 @@ function AddTaskForm({ isVisible, onClose, onAdded }) {
             if (response.status === 200) {
                 onAdded();
                 setErrors({});
-                onClose();
+                handleOnClose();
             }
         }
         catch (error) {

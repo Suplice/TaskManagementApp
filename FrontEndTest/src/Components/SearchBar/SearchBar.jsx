@@ -80,8 +80,10 @@ function SearchBar({ onSearch, tasks, onSearchSelectTask, onShowAllTasks }) {
   
 
     return (<div id="searchSection">
-        <div id = "revertAndInput">
-            <img src="/public/revertImage.png" id="revertImage" onClick={ handleShowAllTasks }></img>
+        <div id="revertAndInput">
+            <div id="revertImageBox">
+                <img src="/public/revertImage.png" id="revertImage" onClick={handleShowAllTasks}></img>
+            </div>
              <div id="SearchBarBox">
              <input id="SearchText" autoComplete="off" value={text} onChange={(event) => { setText(event.target.value) }} placeholder={placeholder} onBlur={() => { setPlaceholder('Search...') }} onFocus={() => { setPlaceholder('') }}></input>
              <img src='/public/removeSearchIcon.jpg' id='removeIcon' hidden={removeIconVisibility} onClick={handleRemoveIconClick }></img>

@@ -28,7 +28,6 @@ function TaskList() {
 
 
     useEffect(() => {
-        console.log("something happened");
         function filterTasks() {
             var filteredTasks = tasks;
 
@@ -108,6 +107,7 @@ function TaskList() {
     }
 
     const setTasksByTitle = (text) => {
+
         setShowAllTasks(false);
         setSearchText(text);
         setSearchTasks(!searchTasks);
