@@ -1,5 +1,5 @@
 import "./TaskList.css";
-import { useState, useEffect} from "react";
+import { useState, useEffect, useRef} from "react";
 import Task from "../Task/Task.jsx";
 import AddTaskForm from "../AddTaskForm/AddTaskForm.jsx";
 import axios from "axios";
@@ -19,7 +19,7 @@ function TaskList() {
     const [searchTasks, setSearchTasks] = useState(false);
     const [searchTasksById, setSearchTasksById] = useState(false);
 
-
+    const dropdownRef = useRef(null);
 
     useEffect(() => {
      fetchTasks();
@@ -115,6 +115,7 @@ function TaskList() {
 
 
     const setFilteredTaskId = (task) => {
+        clearAllFilters();
         setFilterTaskId(task.taskId);
         setSearchTasksById(!searchTasksById);
     }
@@ -126,6 +127,32 @@ function TaskList() {
         setIsOverDue(false);
         setSearchTasks(!searchTasks);
     }
+
+    const clearAllFilters = () => {
+        setShowAllTasks(false);
+        setIsCompleted(false);
+        setIsCompleted(false);
+        setIsOverDue(false);
+    };
+
+
+    const handleClickOutside = (event) => {
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+            setIsDropdownVisible(false);
+        }
+    };
+
+    useEffect(() => {
+        if (isDropdownVisible) {
+            document.addEventListener("mousedown", handleClickOutside);
+        } else {
+            document.removeEventListener("mousedown", handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [isDropdownVisible]);
 
 
 
@@ -163,7 +190,7 @@ function TaskList() {
                       </button>
                     </div>
                         {isDropdownVisible && (
-                      <div  className={`DropdownContent ${isDropdownVisible ? 'show' : ''}`}>
+                      <div ref={dropdownRef} className={`DropdownContent ${isDropdownVisible ? 'show' : ''}`}>
                           <img src='/public/removeSearchIcon.jpg' id="exitFilterButton" onClick={toggleDropdown}></img>
                                   <label>
                                       <input

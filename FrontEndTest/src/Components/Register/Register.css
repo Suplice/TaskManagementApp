@@ -7,8 +7,10 @@ body {
   flex-direction: column;
   margin: 9vh;
   height: 100%;
+  width: 100%;
   justify-content: center;
   align-items: center;
+  margin-top: 15vh;
 }
 .InputData {
   min-height: 500px;

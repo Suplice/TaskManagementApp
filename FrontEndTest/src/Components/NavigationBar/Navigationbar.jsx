@@ -6,7 +6,14 @@ function Navigationbar({ onLogout }) {
   const userLoggedIn = localStorage.getItem("loggedIn") === "true";
 
   return (
-    <nav className="navigationContainer">
+      <nav className="navigationContainer">
+          <div className="text">
+              {userLoggedIn && (
+                  <p className="WelcomeText">
+                      TaskApp
+                  </p>
+              )}
+          </div>
       <div className="linkContainer">
         {userLoggedIn ? (
           <>
@@ -27,12 +34,11 @@ function Navigationbar({ onLogout }) {
             </Link>
           </>
         )}
-      </div>
-      {userLoggedIn && (
-        <p className="WelcomeText">
-          Welcome, {localStorage.getItem("userName")}
-        </p>
-      )}
+          </div>
+          <div className="copyrightSpace">
+              <span className="copyrightMark">&#169;</span>
+              <span className="copyrightName">Suplice</span>
+          </div>
     </nav>
   );
 }

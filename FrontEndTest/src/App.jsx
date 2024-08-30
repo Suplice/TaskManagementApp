@@ -98,7 +98,8 @@ function App() {
     }
   }
 
-  return (
+    return (
+      <div id="site">
     <Router>
       <Navigationbar onLogout={handleLogout} />
       <Routes>
@@ -118,7 +119,8 @@ function App() {
           </>
         )}
       </Routes>
-    </Router>
+            </Router>
+        </div>
   );
 }
 

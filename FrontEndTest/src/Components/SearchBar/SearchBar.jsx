@@ -56,15 +56,18 @@ function SearchBar({ onSearch, tasks, onSearchSelectTask, onShowAllTasks }) {
 
     const handleSearchClick = () => {
         onSearch(text);
+        setIsSearchResultsVisible(false);
     }
 
     const handleRemoveIconClick = () => {
+       
         setText('');
         onSearch('');
+
+
     };
 
     const handleSearchTask = (task) => {
-
         setIsSearchResultsVisible(false);
         onSearchSelectTask(task);
     }
