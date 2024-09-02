@@ -131,3 +131,7 @@ input {
   margin: 0;
   margin-right: 10px;
 }
+
+input:focus{
+    outline: none;
+}

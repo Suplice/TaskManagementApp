@@ -10,7 +10,7 @@ function Register() {
     const [email, setEmail] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [password, setPassword] = useState('');
-
+    const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState({});
 
     const navigate = useNavigate();
@@ -50,6 +50,7 @@ function Register() {
 
     async function registerUser(event) {
         event.preventDefault();
+        setLoading(true);
 
         setErrors({});
 
@@ -70,21 +71,27 @@ function Register() {
 
  
 
+            try {
 
-        try {
+                const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/Account/Register`, registerData, {
 
-            const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/Account/Register`, registerData, {
+                })
 
-            })
+                if (response.status === 200) {
+                    navigate("/login");
+                }
 
-            if (response.status === 200) {
-                navigate("/login");
             }
+            catch (error) {
+                setErrors(error.response.data.errors);
+                console.log(error.response.data.errors);
+            }
+            finally {
+                setLoading(false);
+            }
+        
 
-        }
-        catch (error){
-            setErrors(error.response.data.errors);
-        }
+
 
 
     }
@@ -94,7 +101,7 @@ function Register() {
 
 
   return (
-    <div className="RegisterContainer">
+      <div className={`RegisterContainer  ${loading? "loading" : ""}`} >
       <div className="InputData">
               <form className="RegisterForm" onSubmit={(event) => registerUser(event) }>
           <div className="Inputs">

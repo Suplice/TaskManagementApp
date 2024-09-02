@@ -16,27 +16,26 @@ function Login({ onLogin }) {
   async function handleLogin(e) {
     e.preventDefault();
       setLoading(true);
-      setTimeout(async () => {
-          try {
-              const response = await axios.post(
-                  `${import.meta.env.VITE_API_BASE_URL}/Account/login`,
-                  formData
-              );
+      try {
+          const response = await axios.post(
+              `${import.meta.env.VITE_API_BASE_URL}/Account/login`,
+              formData,
+          );
 
-              localStorage.setItem("JwtToken", response.data.jwtToken);
-              localStorage.setItem("loggedIn", "true");
-              localStorage.setItem("userName", response.data.data.login);
-              onLogin();
-          } catch (error) {
-              setErrorMessage("Invalid login or password, please try again.");
-              setFormData((prevState) => ({
-                  ...prevState,
-                  Password: "",
-              }));
-          } finally {
-              setLoading(false); // Set loading to false after login attempt
-          }
-      }, 3000); // 3-second delay
+          localStorage.setItem("JwtToken", response.data.jwtToken);
+          localStorage.setItem("loggedIn", "true");
+          localStorage.setItem("userName", response.data.data.login);
+          onLogin();
+      } catch (error) {
+
+          setErrorMessage("Invalid login or password, please try again.");
+          setFormData((prevState) => ({
+              ...prevState,
+              Password: "",
+          }));
+      } finally {
+          setLoading(false);
+      }
   }
 
   function handleChange(e) {
