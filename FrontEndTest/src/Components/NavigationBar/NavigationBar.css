@@ -26,7 +26,7 @@ body {
   flex-direction: column;
   width: 100%;
   height: 100%;
-  justify-content:space-between;
+
   margin-bottom: 10px;
   
 }
@@ -55,7 +55,22 @@ body {
     padding-bottom: 5px;
 }
 
-.LinkButton:hover {
+.LogoutButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: auto;
+    transition: background-color 0.5s ease, color 0.5s ease;
+    text-decoration: none;
+    color: black;
+    font-size: 25px;
+    font-weight: bold;
+    font-style: oblique;
+}
+
+
+
+.LinkButton:hover,  .LogoutButton:hover{
   background-color: hsl(0, 25%, 80%);
   color: white;
 }

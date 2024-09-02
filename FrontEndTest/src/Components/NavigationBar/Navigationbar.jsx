@@ -20,7 +20,7 @@ function Navigationbar({ onLogout }) {
             <Link to="/TaskList" className="LinkButton">
               Task Menu
             </Link>
-            <Link className="LinkButton" onClick={onLogout}>
+            <Link className="LogoutButton" onClick={onLogout}>
               Logout
             </Link>
           </>
