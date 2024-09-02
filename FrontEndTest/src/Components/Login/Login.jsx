@@ -44,7 +44,16 @@ function Login({ onLogin }) {
       [name]: value,
     }));
 
-  }
+    }
+
+    function handleReset() {
+        setFormData({
+            Password: "",
+            Login: ""
+        });
+
+        setErrorMessage("");
+    }
 
   return (
     <div className="LoginContainer">
@@ -75,7 +84,7 @@ function Login({ onLogin }) {
             <button className="LoginButton" type="submit">
               Login
             </button>
-            <button className="ResetButton" type="reset">
+            <button className="ResetButton" type="reset" onClick={ handleReset }>
               Reset
             </button>
           </div>

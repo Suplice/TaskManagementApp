@@ -8,11 +8,11 @@ function Navigationbar({ onLogout }) {
   return (
       <nav className="navigationContainer">
           <div className="text">
-              {userLoggedIn && (
+               
                   <p className="WelcomeText">
                       TaskApp
                   </p>
-              )}
+              
           </div>
       <div className="linkContainer">
         {userLoggedIn ? (
