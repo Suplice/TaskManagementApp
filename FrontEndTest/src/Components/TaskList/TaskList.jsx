@@ -49,7 +49,7 @@ function TaskList() {
             }
 
             if (isOverDue) {
-                filteredTasks = filteredTasks.filter(task => new Date(task.dueDate) < new Date());
+                filteredTasks = filteredTasks.filter(task => (new Date(task.dueDate) < new Date()) && (!task.isCompleted));
    
             }
             if (showAllTasks) {
@@ -67,6 +67,7 @@ function TaskList() {
     useEffect(() => {
         function filterTaskById() {
             setFilteredTasks(tasks.filter((task) => task.taskId === filterTaskId));
+            clearAllFilters();
         }
 
         filterTaskById();
@@ -131,7 +132,7 @@ function TaskList() {
     const clearAllFilters = () => {
         setShowAllTasks(false);
         setIsCompleted(false);
-        setIsCompleted(false);
+        setIsNotCompleted(false);
         setIsOverDue(false);
     };
 
