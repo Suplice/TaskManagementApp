@@ -10,30 +10,33 @@ function Login({ onLogin }) {
   });
 
   const [errorMessage, setErrorMessage] = useState("");
-
+    const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   async function handleLogin(e) {
     e.preventDefault();
+      setLoading(true);
+      setTimeout(async () => {
+          try {
+              const response = await axios.post(
+                  `${import.meta.env.VITE_API_BASE_URL}/Account/login`,
+                  formData
+              );
 
-    try {
-      const response = await axios.post(
-          `${import.meta.env.VITE_API_BASE_URL}/Account/login`,
-        formData,
-      );
-
-      localStorage.setItem("JwtToken", response.data.jwtToken);
-      localStorage.setItem("loggedIn", "true");
-      localStorage.setItem("userName", response.data.data.login);
-      onLogin();
-    } catch (error) {
-
-      setErrorMessage("Invalid login or password, please try again.");
-      setFormData((prevState) => ({
-        ...prevState,
-        Password: "",
-      }));
-    }
+              localStorage.setItem("JwtToken", response.data.jwtToken);
+              localStorage.setItem("loggedIn", "true");
+              localStorage.setItem("userName", response.data.data.login);
+              onLogin();
+          } catch (error) {
+              setErrorMessage("Invalid login or password, please try again.");
+              setFormData((prevState) => ({
+                  ...prevState,
+                  Password: "",
+              }));
+          } finally {
+              setLoading(false); // Set loading to false after login attempt
+          }
+      }, 3000); // 3-second delay
   }
 
   function handleChange(e) {
@@ -56,24 +59,26 @@ function Login({ onLogin }) {
     }
 
   return (
-    <div className="LoginContainer">
+      <div className={`LoginContainer ${loading ? "loading" : ""}`}>
       <div className="LoginMenu">
         <form className="LoginForm" onSubmit={handleLogin}>
           <div className="formData">
             <label className="Text"> Login: </label>
             <input
-              type="text"
-              name="Login"
-              value={formData.Login}
-              onChange={handleChange}
+                          type="text"
+                          name="Login"
+                          value={formData.Login}
+                          onChange={handleChange}
+                          disabled={ loading }
             ></input>
 
             <label className="Text"> Password: </label>
             <input
-              type="password"
-              name="Password"
-              value={formData.Password}
-              onChange={handleChange}
+                          type="password"
+                          name="Password"
+                          value={formData.Password}
+                          onChange={handleChange}
+                          disabled={ loading }
             ></input>
 
             <p className="InputError" id="errorMessage">
@@ -81,10 +86,10 @@ function Login({ onLogin }) {
             </p>
           </div>
           <div className="buttons">
-            <button className="LoginButton" type="submit">
+                      <button className="LoginButton" type="submit" disabled={ loading }>
               Login
             </button>
-            <button className="ResetButton" type="reset" onClick={ handleReset }>
+                      <button className="ResetButton" type="reset" onClick={handleReset} disabled={loading }>
               Reset
             </button>
           </div>

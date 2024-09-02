@@ -104,19 +104,19 @@ function Task({ task, onTaskUpdated }) {
 
     return (
         <div className="Task-container" style={{ boxShadow: handleTaskBackgroundShadow() }}>
-      <div className="TaskInformation">
-        <div className="TaskTitle">Title: {title}</div>
-        <div className="TaskDescription">Description: {description} </div>
-        <div className="TaskStartTime">Start Time: {formatDate(startDate)}</div>
-        <div className="TaskEndTime">End Time: {formatDate(dueDate)}</div>
-        <div className="TaskCompletionStatus">
-          Completed: {isCompleted ? "yes" : "no"}
-        </div>
+              <div className="TaskInformation">
+                <div className="TaskTitle">Title: {title}</div>
+                <div className="TaskDescription">Description: {description} </div>
+                <div className="TaskStartTime">Start Time: {formatDate(startDate)}</div>
+                <div className="TaskEndTime">End Time: {formatDate(dueDate)}</div>
+                <div className="TaskCompletionStatus">
+                  Completed: {isCompleted ? "yes" : "no"}
+                </div>
       </div>
-      <div className="TaskButtons">
-              <button className="CompleteTaskButton" onClick={ handleCompleteTask }> Complete </button>
-              <button className="RemoveTaskButton" onClick={ handleRemoveTask } >Remove</button>
-      </div>
+          <div className="TaskButtons">
+                  <button className="CompleteTaskButton" onClick={ handleCompleteTask }> Complete </button>
+                  <button className="RemoveTaskButton" onClick={ handleRemoveTask } >Remove</button>
+          </div>
     </div>
   );
 }

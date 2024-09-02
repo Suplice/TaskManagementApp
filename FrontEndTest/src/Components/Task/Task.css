@@ -37,11 +37,12 @@
 }
 
 .TaskDescription {
-  padding: 5px;
-  word-wrap: break-word;
-  white-space: normal;
-  width: 90%;
-  overflow: auto;
+    padding: 5px;
+    word-wrap: break-word;
+    width: 90%;
+    white-space: break-spaces;
+    overflow: auto;
+    
 }
 
 .TaskButtons {
