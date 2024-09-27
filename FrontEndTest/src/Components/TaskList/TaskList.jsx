@@ -173,7 +173,7 @@ function TaskList() {
         ></AddTaskForm>
         <div className="Controls">
           <div>
-            <button className="BlankButton">Add Task</button>
+            <button className="BlankButton">Add TEST</button>
           </div>
           <div>
             <button className="AddEventButton" onClick={showForm}>
@@ -206,6 +206,7 @@ function TaskList() {
                     setIsOverDue(false);
                   }}
                   name="taskFilter"
+                  id="All"
                 />
                 All
               </label>
@@ -220,6 +221,7 @@ function TaskList() {
                     setIsOverDue(false);
                   }}
                   name="taskFilter"
+                  id="completed"
                 />
                 Completed
               </label>
@@ -234,6 +236,7 @@ function TaskList() {
                     setIsOverDue(false);
                   }}
                   name="taskFilter"
+                  id="notCompleted"
                 />
                 Not Completed
               </label>
@@ -248,6 +251,7 @@ function TaskList() {
                     setIsOverDue(true);
                   }}
                   name="taskFilter"
+                  id="Overdue"
                 />
                 Overdue
               </label>
