@@ -112,6 +112,7 @@ function SearchBar({ onSearch, tasks, onSearchSelectTask, onShowAllTasks }) {
             src="/public/SearchIcon.png"
             id="searchIcon"
             onClick={handleSearchClick}
+            alt="Search Icon"
           ></img>
         </div>
       </div>
